@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重启房间组</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>房间组重启控制</h1>
+
+    <button onclick="restartRoomGroup(1)">重启房间组 1</button>
+    <button onclick="restartRoomGroup(2)">重启房间组 2</button>
+    <button onclick="restartRoomGroup(3)">重启房间组 3</button>
+    <button onclick="restartRoomGroup(4)">重启房间组 4</button>
+
+    <p id="status-message" style="color:green;"></p>
+
+    <script>
+        function restartRoomGroup(group) {
+            fetch('/u2u/restart_room', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ group: group }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statusMessage = document.getElementById('status-message');
+                if (data.status === 'success') {
+                    statusMessage.style.color = 'green';
+                } else {
+                    statusMessage.style.color = 'red';
+                }
+                statusMessage.innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>

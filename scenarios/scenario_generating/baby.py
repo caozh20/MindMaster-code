@@ -1,0 +1,38 @@
+BABY = {
+    "name": "1_put_into_3_4",
+    "agents": [
+        {'id': 1,
+         'name': 'baby',
+         'pos': [400, 300],
+         'attention': -0.9,
+         'rotate': -0.9,
+         'belief_obj_ids': [3, 4],
+         'desire': {'active': 1, 'social': 0, 'helpful': 2},
+         'intent': {'ind': ['gaze_follow', 2], 'soc': None, 'comm': None, 'ref': None, 'type': "LILU"}
+         },
+        {'id': 2,
+         'name': 'man',
+         'pos': [400, -300],
+         'attention': 0.5,
+         'rotate': 0.5,
+         'hands_occupied': True,
+         'desire': {'active': 1, 'social': 0, 'helpful': 0},
+         'holding_ids': [3],
+         'intent': {'ind': ['put_into', 3, 4], 'soc': None, 'comm': None, 'ref': None, 'type': "HILU"}}],
+    "objects": [{'id': 3,
+                 'name': 'books',
+                 'size': [67, 75],
+                 # 'pos': [400, -300],
+                 'rotate': 0.5,
+                 'is_game': False,
+                 'being_held_id': [2]},
+                {'id': 4,
+                 'name': 'shelf',
+                 'size': [160, 220],
+                 'pos': [-100, 0],
+                 'rotate': 0.5,
+                 'is_container': True,
+                 'open': False}
+                ],
+    "landmarks": None
+}

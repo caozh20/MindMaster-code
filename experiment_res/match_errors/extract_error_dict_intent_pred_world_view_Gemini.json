@@ -1,0 +1,3 @@
+{
+    "214": "my inferred intention of the first agent is: {\n\"most_possible_intention\": \"agent_2-requesthelp-agent_1-[give_banana_3_agent_2]\",\n\"most_possible_intention_cf\": 0.75,\n\"second_possible_intention\": \"agent_2-get-banana_3-agent_1\",\n\"second_possible_intention_cf\": 0.65,\n\"third_possible_intention\": \"agent_2-inform-agent_1-\\\"agent_2 wants banana_3\\\"\",\n\"third_possible_intention_cf\": 0.55\n}"
+}

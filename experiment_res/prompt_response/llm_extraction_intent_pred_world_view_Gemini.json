@@ -1,0 +1,4 @@
+{
+    "214": "{\"most_possible_intention\": \"agent_2-requesthelp-agent_1-[give_banana_3_agent_2]\", \"most_possible_intention_cf\": 0.75, \"second_possible_intention\": \"agent_2-get-banana_3-agent_1\", \"second_possible_intention_cf\": 0.65, \"third_possible_intention\": \"agent_2-inform-agent_1-\\\"agent_2 wants banana_3\\\"\", \"third_possible_intention_cf\": 0.55}",
+    "568": "{\"most_possible_intention\": \"agent_1-playwith-chess_3-agent_2\", \"most_possible_intention_cf\": 0.8, \"second_possible_intention\": \"agent_1-harm-agent_2-['get', cup_4, agent_2]\", \"second_possible_intention_cf\": 0.7, \"third_possible_intention\": \"agent_1-observe-agent_2\", \"third_possible_intention_cf\": 0.4}"
+}

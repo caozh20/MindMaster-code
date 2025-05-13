@@ -1,0 +1,188 @@
+html {
+    font-size: 1vh;
+}
+
+body {
+  /*background-color: #F1F5FB;*/
+  background-color: #2D2E36;
+  margin: 0;
+  color: #FFFFFF;
+  font-family: HelveticaNeue;
+}
+
+.gif-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  font-size: 20px;
+}
+
+.gif-item.active {
+  background-color: #2652DA;
+  font-size: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ .mysidebar > li {
+    font-size: 2em;
+    color: white;
+    margin-left: 1em;
+    margin-top: 3em;
+    margin-bottom: 1em; /* Optional: adds spacing between top-level items */
+    cursor: pointer;
+}
+
+.mysidebar > li > ul > li {
+    font-size: 1em;
+    color: blue;
+    margin-left: 2em; /* Optional: adds indentation for sub-items */
+    margin-top: 1em;
+    margin-bottom: 1em; /* Optional: adds spacing between sub-items */
+    cursor: pointer;
+}
+
+.gallery {
+  margin-left: 2vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.command {
+  color: white;
+  /* background-color: black; 为了更好的可读性，设置黄色文本的黑色背景 */
+}
+
+.explanation {
+  color: white;
+  font-size: 0.75em;
+}
+
+li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: Chocolate;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px dashed red;
+}
+
+.divider:not(:empty)::before {
+  margin-right: 10px;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 10px;
+}
+
+/* 容器设置为flex布局，宽度100%，高度自动 */
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between; /* 元素之间的间隔均匀分布 */
+  align-items: stretch; /* 让所有子元素的高度填满容器 */
+}
+
+.mysidebar {
+  /* flex-grow: 1; 允许侧边栏增长填满额外空间 */
+  padding: 5px 10px; /* 减少padding以让背景颜色更贴近文字 */
+  margin: 10px 0; /* 增加上下间距以在侧边栏之间留出空白 */
+  box-sizing: border-box; /* 确保padding和border在计算宽度和高度时被包含 */
+  display: inline-block; /* 使元素根据内容自动调整大小，让背景颜色不会覆盖整个行宽 */
+  border-radius: 10px; /* 圆角半径 */
+  max-width: 90%; /* 限制最大宽度，避免背景颜色拉伸得太宽 */
+  text-align: left; /* 文字居中 */
+}
+
+#sidebar_action {
+  background-color: #FF6F61;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#div_gif {
+  background-color: #FF6F61;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#sidebar_intent {
+  background-color: #6B5B95;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#div_intent {
+  background-color: #6B5B95;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#sidebar_value {
+  background-color: #88B04B;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#div_value {
+  background-color: #88B04B;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#sidebar_qa {
+  background-color: #F7CAC9;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#div_qa {
+  background-color: #F7CAC9;
+  display: inline-block; /* 根据内容自动调整宽度 */
+  border-radius: 20px; /* 圆角半径 */
+  padding: 10px 20px; /* 内部填充，使矩形比文字多一点空间 */
+}
+
+#backToTopBtn {
+  position: fixed; /* 固定位置 */
+  top: 20px; /* 距离页面顶部20px */
+  right: 20px; /* 距离页面右侧20px */
+  background-color: #007bff; /* 按钮背景颜色 */
+  color: white; /* 图标和文字颜色 */
+  border: none; /* 去除边框 */
+  padding: 10px;
+  border-radius: 50%; /* 圆形按钮 */
+  cursor: pointer;
+  font-size: 18px;
+  display: none; /* 默认隐藏按钮 */
+  z-index: 1000; /* 确保按钮显示在最上层 */
+}
+
+#backToTopBtn:hover {
+  background-color: #0056b3; /* 鼠标悬停时的颜色 */
+}

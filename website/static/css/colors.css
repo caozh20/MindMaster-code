@@ -1,0 +1,9 @@
+.status-busy { color: #dc3545; }
+.status-available { color: #28a745; }
+.status-unavailable { color: #ffc107; }
+
+.status-waiting { color: #007bff; }
+.status-playing { color: #28a745; }
+.status-quit { color: #dc3545; }
+.status-finished { color: #17a2b8; }
+.status-pending { color: #b3b3b3; }

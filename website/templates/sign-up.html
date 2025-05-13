@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %} Nonverbal Communication Study  {% endblock %}
+{% block content %}
+<h1> Social Interaction Game via Theory of Mind </h1>
+<!--<div class="left">-->
+<!--    &lt;!&ndash; <canvas id="game" width="700px" height="700px" style="border:1px solid #000000;"> </canvas> &ndash;&gt;-->
+<!--    <img id="logo" src="static/logo.png">-->
+<!--</div>-->
+<!--<div class="right">-->
+<br />
+<br />
+<br />
+    <form method="POST">
+    <h3 align="center">Sign Up</h3>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" />
+    </div>
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" />
+    </div>
+    <div class="form-group">
+        <label for="password1">Password</label>
+        <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password" />
+    </div>
+    <div class="form-group">
+        <label for="password2">Password (Confirm)</label>
+        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" />
+    </div>
+
+    <div class="form-group">
+        <label for="gender">gender</label>
+        <input type="text" class="form-control" id="gender" name="gender" list="gender_option" />
+            <datalist id="gender_option">
+              <option>male</option>
+              <option>female</option>
+            </datalist>
+    </div>
+
+    <div class="form-group">
+        <label for="age">age</label>
+        <input type="text" class="form-control" id="age" name="age" list="age_option" />
+            <datalist id="age_option">
+              <option>10-19</option>
+              <option>20-29</option>
+              <option>30-39</option>
+              <option>40-49</option>
+              <option>50-59</option>
+            </datalist>
+    </div>
+    <div class="form-group">
+        <label for="education">education</label>
+        <input type="text" class="form-control" id="education" name="education" list="education_option" />
+            <datalist id="education_option">
+              <option>Early childhood education</option>
+              <option>Primary education</option>
+              <option>Lower secondary education</option>
+              <option>Upper secondary education</option>
+              <option>Postsecondary non-tertiary education</option>
+              <option>Bachelor’s or equivalent level</option>
+              <option>Master’s or equivalent level</option>
+              <option>Doctor or equivalent level</option>
+            </datalist>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<!--</div>-->
+{% endblock %}

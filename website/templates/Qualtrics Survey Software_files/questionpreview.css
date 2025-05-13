@@ -1,0 +1,63 @@
+#QuestionPreview .PipedButtonHolder {
+	position:relative;
+	overflow:hidden;
+}
+
+#QuestionPreview .QuestionBody table .PipedButtonHolder
+{
+	margin: 0 auto;
+}
+
+#QuestionPreview .LabelWrapper .PipedButtonHolder input.TextEntryBox
+{
+	clear:none;
+	float:right !important;
+	margin:0;
+	top:0;
+	left:0;
+}
+
+#QuestionPreview .pipedButton {
+    cursor: pointer;
+	background: transparent url(/static/q-generic/~/img/editwidgets.png) no-repeat 0px -36px;
+    height: 23px;
+	width: 20px;
+	display: block;
+}
+
+#QuestionPreview .PipedButtonHolder span,
+#QuestionPreview .PipedButtonHolder input {
+	float:right;
+}
+
+#QuestionPreview .pipedButton:hover {
+	color: white;
+}
+
+.Skin .CalendarInner {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.Skin .CalendarInner .LabelWrapper {
+	margin-bottom: 5px;
+}
+
+.Skin .CalendarInner .InputContainer {
+    display: flex;
+    align-items: center;
+}
+
+.Skin .CalendarInner input,
+.Skin .CalendarInner .InputText {
+	width: 240px;
+	display: flex;
+	align-items: center;
+    padding-right: 28px;
+    padding-left: 6px;
+}
+
+.Skin .CalendarInner svg {
+	margin-left: -27px;
+}

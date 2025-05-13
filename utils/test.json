@@ -1,0 +1,21 @@
+{
+    "q_id": "QID1594,593",
+    "question_description": "Which action is more active? \uff08Current Question  20 / Total Questions  64\uff09",
+    "user_chosen": {
+        "choice_id": "3",
+        "choice_text": "[\"MoveToAttention\",\"agent_2\"]  move to agent_2's attention field",
+        "choice_metadata": "ActionMoveToAttention_agent_2_2_nd_sa_a.gif"
+    },
+    "user_rejected": [
+        {
+            "choice_id": "1",
+            "choice_text": "[WaveHand]|wave hand",
+            "choice_metadata": "ActionWaveHand_agent_2_2_fd_sa_a.gif"
+        },
+        {
+            "choice_id": "2",
+            "choice_text": "",
+            "choice_metadata": "They are equally active."
+        }
+    ]
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/colors.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .table-hover tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .container-fluid {
+            padding-left: 30px;
+            padding-right: 30px;
+            width: 85%;
+            margin: 0 auto; /* Center the container */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <h1>Admin Panel</h1>
+        <div class="row mb-3">
+            <div class="col">
+                <button id="refreshBtn" class="btn btn-primary">Refresh Data</button>
+                <span id="lastUpdated" class="ms-3"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Rooms Status</h2>
+                <input type="text" id="roomSearch" class="form-control mb-2" placeholder="Search rooms...">
+                <table id="roomsTable" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Room ID</th>
+                            <th>Status</th>
+                            <th>Users</th>
+                            <th>Scenario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Users Status</h2>
+                <input type="text" id="userSearch" class="form-control mb-2" placeholder="Search users...">
+                <table id="usersTable" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>User UUID</th>
+                            <th>Email</th>
+                            <th>Room ID</th>
+                            <th>Partner</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        function truncateUUID(input) {
+            if (input.includes(':')) {
+                let [uuid, email] = input.split(':');
+                return uuid.substring(0, 8) + ': ' + email;
+            } else {
+                return input.substring(0, 8);
+            }
+        }
+
+        function updateTables() {
+            $.ajax({
+                url: '/admin/status',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    updateRoomsTable(data.rooms);
+                    updateUsersTable(data.users);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching status:', error);
+                }
+            });
+        }
+
+        function updateRoomsTable(rooms) {
+            var tbody = $('#roomsTable tbody');
+            tbody.empty();
+            for (var roomId in rooms) {
+                var room = rooms[roomId];
+                var row = $('<tr>');
+                row.append($('<td>').text(roomId));
+                var statusCell = $('<td>');
+                var statusText = $('<span>').text(room.status).addClass(getStatusClass(room.status));
+                statusCell.append(statusText);
+                row.append(statusCell);
+                // Truncate each user UUID in the room.users array
+                var truncatedUsers = room.users.map(truncateUUID);
+                row.append($('<td>').html(truncatedUsers.join('<br>')));
+                row.append($('<td>').text(room.scenario));
+                tbody.append(row);
+            }
+        }
+
+        function updateUsersTable(users) {
+            var tbody = $('#usersTable tbody');
+            tbody.empty();
+            for (var userUuid in users) {
+                var user = users[userUuid];
+                var row = $('<tr>');
+                // Truncate the user UUID
+                row.append($('<td>').text(truncateUUID(userUuid)));
+                row.append($('<td>').text(user.email));
+                row.append($('<td>').text(user.roomId));
+                row.append($('<td>').text(truncateUUID(user.partner)));
+                var statusCell = $('<td>');
+                var statusText = $('<span>').text(user.status).addClass(getStatusClass(user.status));
+                statusCell.append(statusText);
+                row.append(statusCell);
+                tbody.append(row);
+            }
+        }
+
+        function getStatusClass(status) {
+            switch (status.toLowerCase()) {
+                case 'busy':
+                    return 'status-busy';
+                case 'available':
+                    return 'status-available';
+                case 'unavailable':
+                    return 'status-unavailable';
+                case 'playing':
+                    return 'status-playing';
+                case 'quit':
+                    return 'status-quit';
+                case 'finished':
+                    return 'status-finished';
+                case 'waiting':
+                    return 'status-waiting'; 
+                default:
+                    return '';
+            }
+        }
+
+        function updateLastUpdated() {
+            $('#lastUpdated').text('Last updated: ' + new Date().toLocaleTimeString());
+        }
+
+        $('#refreshBtn').click(updateTables);
+
+        $('#roomSearch').on('input', function() {
+            var value = $(this).val().toLowerCase();
+            $("#roomsTable tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        $('#userSearch').on('input', function() {
+            var value = $(this).val().toLowerCase();
+            $("#usersTable tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        setInterval(updateTables, 1000);
+        updateTables();
+    </script>
+</body>
+</html>

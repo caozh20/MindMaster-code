@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Silent Social Play!</title>
+    <link rel="stylesheet" href="../static/format.css">
+    <script type="text/javascript" src="../static/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/echarts.min.js"></script>
+    <script type="text/javascript" src="../static/desire.js"></script>
+    <script type="text/javascript" src="../static/utils.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div id="center-logo">
+            <img id="logo" src="../static/logo.png">
+        </div>
+        <div id="intention">
+            <p id="intention-para">My initial assigned intention is <b><span style="color: #FF8D00;">"{{ intent_desc }}"</span></b></p>
+        </div>
+        <div id="desire">
+            <img class="image" id="desire-active"  src="../static/1_3.png" onload="resize()">
+            <img class="image" id="desire-social"  src="../static/2_3.png">
+            <img class="image" id="desire-helpful"  src="../static/3_5.png">
+        </div>
+        <div id="round" style="text-align: center;">
+            - ROUND -
+        </div>
+        <div id="game">
+            <div class="center">
+                <!-- <canvas id="game" width="700px" height="700px" style="border:1px solid #000000;"> </canvas> -->
+                <img id="render" src="../static/logo.png">
+            </div>
+            <div id="bottom">
+                <div id="bar">
+                    Setting up the game …
+                </div>
+                <div id="labels" style="text-align: left;" >
+                    <div class="label" id="2.1" style="display:none;">
+                        <div id="layout-2-1" class="layout-label">
+                            <div id="2.1.1" style="display:flex">
+                                <p id="name11" class="top-para"></p>
+                                <select id="sel_other_high_intent1-0" onchange="OnIntent2Change()" >
+                                        <option selected="selected" value="NA">NA</option>
+                                        <option value='Explore' disabled>Explore</option>
+                                        <option value='Get' disabled>Get..From..</option>
+                                        <option value='Give' disabled>Give..To..</option>
+                                        <option value='Check' disabled>Check</option>
+                                        <option value='Find' disabled>Find</option>
+                                        <option value='Open' disabled>Open</option>
+                                        <option value='PutInto' disabled>Put..Into..</option>
+                                        <option value='PutOnto' disabled>Put..Onto..</option>
+                                        <option value='PlayWith' disabled>Play..With..</option>
+            <!--                            <option value='Refer' disabled>Refer</option>-->
+                                        <option value="Confirm" disabled>Confirm</option>
+                                        <option value='Inform' disabled>Inform</option>
+                                        <option value="Follow" disabled>Follow</option>
+                                        <option value="ObserveAgent" disabled>ObserveAgent</option>
+                                        <option value="Attract" disabled>Attract</option>
+                                        <option value='Help' disabled>Help</option>
+                                        <option value='RequestHelp' disabled>RequestHelp</option>
+                                    </select>
+                                <select id="sel_other_high_intent1-1" disabled onchange="OnInt2Para1Change()">
+                                        </select>
+                                <select id="sel_other_high_intent1-2" disabled onchange="OnInt2Para2Change()">
+                                    </select>
+                                <select id="sel_other_high_intent1-3" disabled onchange="OnInt2Para3Change()">
+                                        </select>
+                                <select id="sel_other_high_intent1-4" disabled >
+                                        </select>
+                                <br />
+                                <p id="name12" class="bottom-para"></p>
+                                <select id="sel_other_low_intent1-0" onchange="OnTask2Change()">
+                                        <option selected="selected" value="NA">NA</option>
+                                        <option value='Explore' disabled>Explore</option>
+                                        <option value='Get' disabled>Get.From..</option>
+                                        <option value='Give' disabled>Give..To..</option>
+                                        <option value='Check' disabled>Check</option>
+                                        <option value='Find' disabled>Find</option>
+                                        <option value='Open' disabled>Open</option>
+                                        <option value='PutInto' disabled>Put..Into..</option>
+                                        <option value='PutOnto' disabled>Put..Onto..</option>
+                                        <option value='PlayWith' disabled>Play..With..</option>
+                                        <option value='Refer' disabled>Refer..To..</option>
+                                        <option value="Confirm" disabled>Confirm</option>
+                                        <option value='Inform' disabled>Inform</option>
+                                        <option value="Follow" disabled>Follow</option>
+                                        <option value="ObserveAgent" disabled>ObserveAgent</option>
+                                        <option value="Attract" disabled>Attract</option>
+            <!--                            <option value='Help' disabled>Help</option>-->
+            <!--                            <option value='RequestHelp' disabled>RequestHelp</option>-->
+                                </select>
+                                <select id="sel_other_low_intent1-1" disabled onchange="OnTask2Para1Change()">
+                                        </select>
+                                <select id="sel_other_low_intent1-2" disabled>
+                                        </select>
+                            </div>
+                            <button class="label-btn" name="intent_inverse" id="btn1" onclick="Label1Done()">Done</button>
+                        </div>
+                    </div>
+                    <div class="label" id="2.2" style="display:none;">
+                        <div id="layout-2-2" class="layout-label">
+                            <div id="layout-2-2-sel">
+                                <p class="top-para">1. My high level intention: </p>
+                                <select id="sel_your_high_intent-0" onchange="OnIntentChange()">
+                                        <option selected="selected" value="NA">NA</option>
+                                        <option value='Explore' disabled>Explore</option>
+                                        <option value='Get' disabled>Get..From..</option>
+                                        <option value='Give' disabled>Give..To..</option>
+                                        <option value='Check' disabled>Check</option>
+                                        <option value='Find' disabled>Find</option>
+                                        <option value='Open' disabled>Open</option>
+                                        <option value='PutInto' disabled>Put..Into..</option>
+                                        <option value='PutOnto' disabled>Put..Onto..</option>
+                                        <option value='PlayWith' disabled>Play..With..</option>
+                <!--                            <option value='Refer' disabled>Refer</option>-->
+                                        <option value="Confirm" disabled>Confirm</option>
+                                        <option value='Inform' disabled>Inform</option>
+                                        <option value="Follow" disabled>Follow</option>
+                                        <option value="ObserveAgent" disabled>ObserveAgent</option>
+                                        <option value="Attract" disabled>Attract</option>
+                                        <option value='Help' disabled>Help</option>
+                                        <option value='RequestHelp' disabled>RequestHelp</option>
+                                </select>
+                                <select id="sel_your_high_intent-1" disabled onchange="OnIntPara1Change()"></select>
+                                <select id="sel_your_high_intent-2" disabled onchange="OnIntPara2Change()"></select>
+                                <select id="sel_your_high_intent-3" disabled onchange="OnIntPara3Change()"></select>
+                                <select id="sel_your_high_intent-4" disabled ></select>
+                                <br />
+                                <p class="bottom-para">2. My low level intention: </p>
+                                <select id="sel_your_low_intent-0" onchange="OnTaskChange()">
+                                    <option selected="selected" value="NA">NA</option>
+                                            <option value='Explore' disabled>Explore</option>
+                                            <option value='Get' disabled>Get..From..</option>
+                                            <option value='Give' disabled>Give..To..</option>
+                                            <option value='Check' disabled>Check</option>
+                                            <option value='Find' disabled>Find</option>
+                                            <option value='Open' disabled>Open</option>
+                                            <option value='PutInto' disabled>Put..Into..</option>
+                                            <option value='PutOnto' disabled>Put..Onto..</option>
+                                            <option value='PlayWith' disabled>Play..With..</option>
+                                            <option value='Refer' disabled>Refer..To..</option>
+                                            <option value="Confirm" disabled>Confirm</option>
+                                            <option value='Inform' disabled>Inform</option>
+                                            <option value="Follow" disabled>Follow</option>
+                                            <option value="ObserveAgent" disabled>ObserveAgent</option>
+                                            <option value="Attract" disabled>Attract</option>
+                    <!--                            <option value='Help' disabled>Help</option>-->
+                    <!--                            <option value='RequestHelp' disabled>RequestHelp</option>-->
+                                    </select>
+                                <select id="sel_your_low_intent-1" disabled onchange="OnTask1Para1Change()"></select>
+                                <select id="sel_your_low_intent-2" disabled></select>
+                            </div>
+                            <button class="label-btn" name="intent" id="btn2" onclick="Label2Done()">Done</button>
+                        </div>
+                    </div>
+                    <div class="label" id="2.3" style="display:none;">
+                        <div id="layout-2-3" class="layout-label">
+                            <div id="layout-2-3-sel">
+                                <p class="top-para">My action</p>
+                                <select name="action" id="sel_action" onchange="OnActionChange()" class="selector">
+                                        <option value="ActionExplore"> Explore </option>
+                                        <option value="ActionRotateTo"> RotateTo </option>
+                                        <option value="ActionCheckWaving"> CheckWaving </option>
+                                        <option value="ActionPlay"> Play </option>
+                                        <option value="ActionMoveTo"> MoveTo </option>
+                                        <option value="ActionMoveToAttention"> MoveToAttention </option>
+                                        <option value="ActionUnlock"> Unlock </option>
+                                        <option value="ActionOpen"> Open </option>
+                                        <option value="ActionGrab"> Grab </option>
+                                        <option value="ActionGiveTo"> GiveTo </option>
+                                        <option value="ActionWaveHand"> WaveHand </option>
+                                        <option value="ActionPointTo"> PointTo </option>
+                                        <option value="ActionObserveAgent"> ObserveAgent </option>
+                                        <option value="ActionFollowGaze"> FollowGaze </option>
+                                        <option value="ActionWait"> Wait </option>
+                                        <option value="ActionNodHead"> NodHead </option>
+                                        <option value="ActionShakeHead"> ShakeHead </option>
+                                        <option value="ActionPutInto"> PutInto </option>
+                                        <option value="ActionPutOnto"> PutOnto </option>
+                                        <option value="ActionPutDown"> PutDown </option>
+                                        <option value="ActionFollowPointing"> FollowPointing </option>
+                                        <option value="ActionHit"> Hit </option>
+                                </select>
+                                <select name="para1" id="sel_action_para1" class="selector1" disabled>
+                                    </select>
+                                <select name="para2" id='sel_action_para2' class="selector2" disabled>
+                                    </select>
+                            </div>
+                            <button class="label-btn" name="run" id="run">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a id="new" href="{{ url_for('web_base.reset') }}" style="display:none;">reset(当前只做测试用)</a>
+    <a id="finish" href="{{ url_for('web_base.finish') }}" style="display:none;">finish</a>
+
+    <script>
+        resize();
+        showAndHide();
+        const active = {{desire.active | int}};
+        const social = {{desire.social | int}};
+        const helpful = {{desire.helpful | int}};
+        decideDesireBars(active, social, helpful);
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        // $('#new').attr("disabled", true);
+
+        // from first page load
+        var action_option_dict = {{ action_option_dict | tojson }};
+        var world_id_name_dict = {{ world_id_name_dict | tojson }};
+        var intent_option_dict = {{ intent_option_dict | tojson }};
+        var tasks_option_dict = {{ tasks_option_dict | tojson }};
+        var other_intent_option_dict = {{ other_intent_option_dict | tojson }};
+        var other_tasks_option_dict = {{ other_tasks_option_dict | tojson }};
+        var agents_rel_pos_dict = {{ agents_rel_pos_dict | tojson }};
+        var belief_agent_list = {{ belief_agent_list | tojson }};
+        var tasks_flat_list = {{ tasks_flat_list | tojson }};
+        var other_flat_tasks_dict = {{ other_flat_tasks_dict | tojson }};
+        var mode = "{{ mode | string}}";
+		var total_time = 20000;
+		// 记录上一次提交时的毫秒数
+		var last_submit_time = new Date().getTime();
+		var wait_time = 0;
+		var initialization = false;
+		var finished_iteration = -1;
+		var fix_time_per_round = true;
+
+        var agent_name = "{{ agent_name }}";
+
+        // 用于全局控制一局游戏是否全部 rendering 结束；
+        var only_done_once = false;
+        var latest_frame = "{{ latest_frame }}";
+
+        // 将动作名字映射为选项名字
+        var action_name_dict = {
+            'ActionExplore': "Explore",
+            'ActionMoveTo': "MoveTo",
+            'ActionRotateTo': "RotateTo",
+            'ActionCheckWaving': "CheckWaving",
+            'ActionOpen': "Open",
+            'ActionUnlock': 'Unlock',
+            'ActionGrab': "Grab",
+            'ActionHit': "Hit",
+            'ActionGiveTo': "Give..To..",
+            'ActionWaveHand': "WaveHand",
+            'ActionMoveToAttention': "MoveToAttention",
+            'ActionPointTo': "PointTo",
+            'ActionObserveAgent': "ObserveAgent",
+            'ActionFollowGaze': "FollowGaze",
+            'ActionWait': "Wait",
+            'ActionNodHead': "NodeHead",
+            // 'ActionShakeHead': "ShakeHead",
+            'ActionPlay': "Play",
+            'ActionPutInto': "Put..Into..",
+            'ActionPutOnto': "Put..Onto..",
+            'ActionPutDown': "Put..Down",
+            'ActionFollowPointing': "FollowPointing"
+        };
+
+        // fix the order of (action options)
+        var action_name_array = ['ActionExplore', 'ActionMoveTo', 'ActionRotateTo', 'ActionCheckWaving', 'ActionOpen', 'ActionUnlock',
+                                'ActionGrab', 'ActionHit', 'ActionGiveTo', 'ActionWaveHand',
+                                'ActionMoveToAttention', 'ActionPointTo', 'ActionObserveAgent', 'ActionFollowGaze', 'ActionWait', 'ActionNodHead',
+                                // 'ActionShakeHead',
+                                'ActionPlay', 'ActionPutInto', 'ActionPutOnto', 'ActionPutDown', 'ActionFollowPointing'];
+
+        // intent 意图描述
+        var intent_desc_dict = {
+            'Explore': 'Explore',
+            'Get': 'Get..From..',
+            'Give': 'Give..To..',
+            'Check': 'Check',
+            'Find': 'Find',
+            'Open': 'Open',
+            'PutInto': 'Put..Into..',
+            'PutOnto': 'Put..Onto..',
+            'PlayWith': 'Play..With..',
+            'Refer': 'Refer..To..',
+            'Confirm': 'Confirm',
+            'Inform': 'Inform',
+            'Follow': 'Follow',
+            'ObserveAgent': 'ObserveAgent',
+            'Attract': 'Attract',
+            'Help': 'Help',
+            'RequestHelp': 'RequestHelp'
+        }
+
+
+        ShowLabelingBox();
+        // ShowBeliefAgentLabel();
+
+        // action init
+        select = document.getElementById("sel_action");
+        select.options.length = 0;
+        keys = Object.keys(action_option_dict)
+        for (let i = 0; i < action_name_array.length; ++i) {
+            this_action = action_name_array[i];
+            if (keys.includes(this_action)) {
+                // new Option(text, value)
+                select.options.add(new Option(action_name_dict[this_action], this_action));
+            }
+        }
+        // explore
+        select.selectedIndex = 0;
+
+
+        // intent init
+        // your intent init
+        let your_high_intent = document.getElementById("sel_your_high_intent-0");
+        options = your_high_intent.options;
+
+        for (let i = 0; i < options.length; ++i) {
+            option = options[i];
+            for (k in intent_option_dict) {
+                for (item of intent_option_dict[k]) {
+                    if (item.startsWith(option.value) || option.value == 'NA') {
+                        option.disabled = false;
+                    } else {
+                    }
+                }
+            }
+        }
+
+        // 0103, high level 与 low level 相互独立
+        let your_low_intent = document.getElementById("sel_your_low_intent-0");
+        options = your_low_intent.options;
+        for (let i = 0; i < options.length; ++i) {
+            option = options[i];
+            for (item of tasks_flat_list) {
+                if (item.startsWith(option.value) || option.value == 'NA') {
+                    option.disabled = false;
+                } else {
+                }
+            }
+        }
+
+
+        // other intent init
+        if (belief_agent_list.length > 0) {
+            let other_high_intent = document.getElementById("sel_other_high_intent1-0");
+            options = other_high_intent.options;
+            agent = belief_agent_list[0];
+            option_dict = other_intent_option_dict[agent[0]];
+
+            for (let i = 0; i < options.length; ++i) {
+                option = options[i];
+                for (k in option_dict) {
+                    for (item of option_dict[k]) {
+                        if (item.startsWith(option.value) || option.value == 'NA') {
+                            option.disabled = false;
+                        } else {
+                        }
+                    }
+                }
+            }
+
+            // 0103, high level 与 low level 相互独立
+            let other_low_intent = document.getElementById("sel_other_low_intent1-0");
+            options = other_low_intent.options;
+            option_list = other_flat_tasks_dict[agent[0]];
+            for (let i = 0; i < options.length; ++i) {
+                option = options[i];
+                for (item of option_list) {
+                    if (item.startsWith(option.value) || option.value == 'NA') {
+                        option.disabled = false;
+                    } else {
+                    }
+                }
+            }
+        }
+
+
+		$('#btn1').click(function() {
+			var bar = document.getElementById('bar');
+			bar.innerHTML = 'Updating your own intents.';
+		});
+		
+		$('#btn2').click(function() {
+			var bar = document.getElementById('bar');
+			bar.innerHTML = 'Planning your next-step action. ';
+		});
+
+		showAndHideOptions();
+
+        $('#run').click(function() {
+            var sel_action = $('#sel_action').val();
+            var sel_action_para1 = $('#sel_action_para1').val();
+            var sel_action_para2 = $('#sel_action_para2').val();
+
+            // your_high_intent
+            // your_low_intent
+            // other_high_intent
+            // other_low_intent
+            your_high_intent = '';
+            your_low_intent = '';
+
+            other_high_intent = '';
+            other_low_intent = '';
+            if (belief_agent_list.length > 0) {
+                belief_agent_id = belief_agent_list[0][0];
+                other_high_intent = belief_agent_id + "|";
+                other_low_intent = belief_agent_id + "|";
+            }
+
+            for (let i = 0; i < 5; ++i){
+                val = $('#sel_your_high_intent-' + i).val();
+                if (val != null) {
+                    value = world_id_name_dict[val];
+                    if (value == undefined) {
+                        value = val;
+                    }
+                    your_high_intent += value + '-';
+                }
+                val = $('#sel_other_high_intent1-' + i).val();
+                if (val != null) {
+                    value = world_id_name_dict[val];
+                    if (value == undefined) {
+                        value = val;
+                    }
+                    other_high_intent += value + '-';
+                }
+            }
+            for (let i = 0; i < 3; ++i){
+                val = $('#sel_your_low_intent-' + i).val();
+                if (val != null) {
+                    value = world_id_name_dict[val];
+                    if (value == undefined) {
+                        value = val;
+                    }
+                    your_low_intent += val + '-';
+                }
+                val = $('#sel_other_low_intent1-' + i).val();
+                if (val != null) {
+                    value = world_id_name_dict[val];
+                    if (value == undefined) {
+                        value = val;
+                    }
+                    other_low_intent += value + '-';
+
+                }
+            }
+
+            if (your_high_intent.endsWith('-')) {
+                your_high_intent = your_high_intent.slice(0, your_high_intent.length-1);
+            }
+            if (your_low_intent.endsWith('-')) {
+                your_low_intent = your_low_intent.slice(0, your_low_intent.length-1);
+            }
+            if (other_high_intent.endsWith('-')) {
+                other_high_intent = other_high_intent.slice(0, other_high_intent.length-1);
+            }
+            if (other_low_intent.endsWith('-')) {
+                other_low_intent = other_low_intent.slice(0, other_low_intent.length-1);
+            }
+
+            $('#run').attr("disabled", true);
+            // $('#run').attr("style", "color:red;");
+
+			// 管理状态栏
+			// 一轮时间 - 所用时间 = 等待时间
+			wait_time = total_time - (new Date().getTime() - last_submit_time)
+			if (wait_time < 0) {
+				wait_time = 0;
+			}
+			if (!fix_time_per_round) {
+				wait_time = 0;
+			}
+			// console.log(wait_time);
+			// console.log(new Date().getTime());
+			state_bar_management();
+
+            $.ajax({
+                url: '/' + mode + '/step',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    'action': sel_action,
+                    'param1': sel_action_para1,
+                    'param2': sel_action_para2,
+                    'your_high_intent': your_high_intent,
+                    'your_low_intent': your_low_intent,
+                    'other_high_intent': other_high_intent,
+                    'other_low_intent': other_low_intent
+                },
+                async: true,
+                success: function(recv) {
+
+                    // 控制一轮游戏的结束状态；
+                    only_done_once = false;
+                    // console.log(recv.message);
+
+                    // action selection
+                    action_option_dict = recv.action_option_dict;
+                    let com = document.getElementById("sel_action");
+                    options = com.options;
+
+                    // intent & tasks
+                    intent_option_dict = recv.intent_option_dict;
+                    tasks_option_dict = recv.tasks_option_dict;
+                    tasks_flat_list = recv.tasks_flat_list;
+
+                    // other intent & tasks
+                    other_intent_option_dict = recv.other_intent_option_dict;
+                    other_tasks_option_dict = recv.other_tasks_option_dict;
+                    other_flat_tasks_dict = recv.other_flat_tasks_dict;
+
+                    // belief_agent_list
+                    belief_agent_list = recv.belief_agent_list;
+
+                    // ShowBeliefAgentLabel();
+
+                    // label positions
+                    agents_rel_pos_dict = recv.agents_rel_pos_dict;
+                    // ShowLabelingBox();
+
+                    // 动作是否合法
+                    invalid = recv.invalid;
+
+                    if (invalid) {
+                        console.log("action failed: " + recv.hint);
+                        alert("action failed: " + recv.hint);
+                        $('#run').attr("disabled", false);
+						
+						var bar = document.getElementById('bar');
+						bar.innerHTML = 'Planning your next-step action.';
+						
+                        return
+                    }
+
+                    select = document.getElementById("sel_action");
+                    select.options.length = 0;
+                    keys = Object.keys(action_option_dict)
+
+                    for (let i = 0; i < action_name_array.length; ++i) {
+                        this_action = action_name_array[i];
+                        if (keys.includes(this_action)) {
+                            // new Option(text, value)
+                            select.options.add(new Option(action_name_dict[this_action], this_action));
+                        }
+                    }
+
+                    // 手动调用函数，改变动作参数
+                    OnActionChange();
+                    OnIntentUpdate();
+                    OnIntent2Update();
+
+                    OnTask2Para1Change();
+                    OnTask1Para1Change();
+                    showAndHideOptions();
+
+                    // auto save last action selected, maybe invalid this step, fixme
+                    for (let i = 0; i < select.options.length; ++i) {
+                        this_option = select.options[i];
+                        if (this_option.value == sel_action) {
+                            this_option.selected = true;
+                            OnActionChange();
+                            if (sel_action_para1 != null) {
+                              $(".selector1").val(sel_action_para1);
+                              if (sel_action_para2 != null) {
+                                $(".selector2").val(sel_action_para2);
+                              }
+                           }
+                        }
+                    }
+                }
+            });
+        });
+
+        $(
+            function() {
+                // call();
+                s = new Date().getTime();
+                // 10ms
+                setInterval(call, 10);
+                e = new Date().getTime();
+                console.log('call duration: %d', s-e);
+            }
+        );
+
+        function updateActionOptions(action_option_dict, action_name_array) {
+            select = document.getElementById("sel_action");
+            const prevValue1 = select.value;
+            para1 = document.getElementById("sel_action_para1");
+            const prevValue2 = para1.value;
+            para2 = document.getElementById("sel_action_para2");
+            const prevValue3 = para2.value;
+
+            select.options.length = 0;
+            keys = Object.keys(action_option_dict)
+
+            for (let i = 0; i < action_name_array.length; ++i) {
+                this_action = action_name_array[i];
+                if (keys.includes(this_action)) {
+                    // new Option(text, value)
+                    select.options.add(new Option(action_name_dict[this_action], this_action));
+                }
+            }
+            const index1 = Array.from(select.options).findIndex(option => option.value === prevValue1);
+            const index2 = Array.from(para1.options).findIndex(option => option.value === prevValue2);
+            const index3 = Array.from(para2.options).findIndex(option => option.value === prevValue3);
+            if (index1 >= 0) {
+                select.selectedIndex = index1;
+                if (index2 >= 0) {
+                    para1.selectedIndex = index2;
+                    if (index3 >= 0) {
+                        para2.selectedIndex = index3;
+                    } else {
+                        OnActionChange();
+                    }
+                } else {
+                    OnActionChange();
+                }
+            } else {
+                OnActionChange();
+            }
+        }
+
+        // show the abled options, and hide the disabled options
+        function showAndHideOptions() {
+            all_options = document.getElementsByTagName("option");
+            for (let i = 0; i < all_options.length; ++i) {
+                this_option = all_options[i];
+                if (this_option.disabled) {
+                    this_option.setAttribute('hidden', 'hidden');
+                } else {
+                    this_option.removeAttribute('hidden');
+                }
+            }
+        }
+
+		function state_bar_management() {
+			// console.log(114514);
+            var start_time = new Date().getTime();
+			promise();
+        }
+
+		function promise() {
+			var bar = document.getElementById('bar');
+			bar.innerHTML = 'Executing the actions in the environment.';
+			setTimeout(function () {
+				if (mode == "u2m") {
+					waitting_interact();
+				}
+			}, wait_time);
+		}
+
+		function waitting_interact() {
+			var bar = document.getElementById('bar');
+			bar.innerHTML = 'Waiting for the other player\'s action.';
+		}
+
+        // 展示标注框；（即标注别人的意图，标注自己的意图，标注下一步的 action）
+        function ShowLabelingBox() {
+            var b = false;
+
+            if (belief_agent_list.length > 0) {
+                name = belief_agent_list[0][1];
+                if (agents_rel_pos_dict[name] != undefined) {
+                    // document.getElementById('2.1').style.position = 'relative';
+                    // document.getElementById('2.1').style.left = agents_rel_pos_dict[name][0];
+                    // document.getElementById('2.1').style.top = agents_rel_pos_dict[name][1];
+                    b = true;
+                }
+            }
+
+            // your intent
+            // document.getElementById('2.2').style.position = 'relative';
+            // document.getElementById('2.2').style.left = agents_rel_pos_dict[agent_name][0];
+            // document.getElementById('2.2').style.top = agents_rel_pos_dict[agent_name][1];
+
+            // your action
+            // document.getElementById('2.3').style.position = 'relative';
+            // document.getElementById('2.3').style.left = agents_rel_pos_dict[agent_name][2];
+            // document.getElementById('2.3').style.top = agents_rel_pos_dict[agent_name][1];
+
+            label1 = document.getElementById("2.1");
+            label2 = document.getElementById("2.2");
+            label3 = document.getElementById("2.3");
+
+            if (b) {
+                ShowBeliefAgentLabel();
+                label1.style.display = 'flex';
+                label2.style.display = 'none';
+                label3.style.display = 'none';
+            } else {
+                label1.style.display = 'none';
+                label2.style.display = 'flex';
+                label3.style.display = 'none';
+            }
+        }
+
+        function ShowBeliefAgentLabel() {
+            if (belief_agent_list.length > 0 ) {
+                document.getElementById("2.1").style.display = "inline";
+                // 暂时只显示一个 other agent
+                // for (let i = 0; i < belief_agent_list.length; i++) {
+                for (let i = 0; i < 1; i++) {
+                    document.getElementById("2.1."+(i+1)).style.display = "inline";
+                    agent = belief_agent_list[i];
+                    document.getElementById("name"+(i+1)+"1").innerHTML = "1. My estimation of " + "<b><span style='color: #50ABF1;'>" + agent[1] + "'s" + "</span></b>" + " high level intention:";
+                    document.getElementById("name"+(i+1)+"2").innerHTML = "2. My estimation of " + "<b><span style='color: #50ABF1;'>" + agent[1] + "'s" + "</span></b>" + " low level intention:";
+                }
+            }
+        }
+
+        function Label1Done() {
+            label1 = document.getElementById("2.1");
+            label2 = document.getElementById("2.2");
+            label3 = document.getElementById("2.3");
+            label1.style.display = 'none';
+            label2.style.display = 'flex';
+            label3.style.display = 'none';
+        }
+
+        function Label2Done() {
+            label1 = document.getElementById("2.1");
+            label2 = document.getElementById("2.2");
+            label3 = document.getElementById("2.3");
+            label1.style.display = 'none';
+            label2.style.display = 'none';
+            label3.style.display = 'flex';
+        }
+
+        function Label3Done() {
+            label1 = document.getElementById("2.1");
+            label2 = document.getElementById("2.2");
+            label3 = document.getElementById("2.3");
+            label1.style.display = 'none';
+            label2.style.display = 'none';
+            label3.style.display = 'none';
+        }
+
+        function CloseBeliefAgentLabel() {
+            Label3Done();
+        }
+
+        function OnActionChange() {
+            var x = document.getElementById("sel_action").value;
+            if (action_option_dict[x] != undefined) {
+                var len = action_option_dict[x].length;
+                if (len == 0) {
+                    select1 = document.getElementById("sel_action_para1");
+                    select2 = document.getElementById("sel_action_para2");
+                    select1.options.length = 0;
+                    select2.options.length = 0;
+                    $('#sel_action_para1').attr('disabled', true);
+                    $('#sel_action_para2').attr('disabled', true);
+                    showAndHide();
+                }
+                if (len == 1) {
+                    select1 = document.getElementById("sel_action_para1");
+                    select2 = document.getElementById("sel_action_para2");
+                    select1.options.length = 0;
+                    select2.options.length = 0;
+                    object_len = action_option_dict[x][0].length;
+                    for (let i = 0; i < object_len; i++) {
+                        select1.options.add(new Option(action_option_dict[x][0][i][0], action_option_dict[x][0][i][1]));
+                    }
+                    $('#sel_action_para1').attr('disabled', false);
+                    $('#sel_action_para2').attr('disabled', true);
+                    showAndHide();
+                }
+                if (len == 2) {
+                    select1 = document.getElementById("sel_action_para1");
+                    select2 = document.getElementById("sel_action_para2");
+                    select1.options.length = 0;
+                    select2.options.length = 0;
+                    object_len = action_option_dict[x][0].length;
+                    for (let i = 0; i < object_len; i++) {
+                        select1.options.add(new Option(action_option_dict[x][0][i][0], action_option_dict[x][0][i][1]));
+                    }
+                    object_len = action_option_dict[x][1].length;
+                    for (let i = 0; i < object_len; i++) {
+                        select2.options.add(new Option(action_option_dict[x][1][i][0], action_option_dict[x][1][i][1]));
+                    }
+                    $('#sel_action_para1').attr('disabled', false);
+                    $('#sel_action_para2').attr('disabled', false);
+                    showAndHide();
+                }
+            }
+        }
+
+        function OnIntentUpdate() {
+            let com = document.getElementById("sel_your_high_intent-0");
+            options = com.options;
+            for (let i = 0; i < options.length; i++) {
+                flag = false;
+                for (let j = 0; j <= 4; ++j) {
+                    if (intent_option_dict[j] == undefined) {
+                        continue;
+                    }
+                    items = intent_option_dict[j];
+                    for (item of items) {
+                        if (item.startsWith(options[i].value)) {
+                            flag = true;
+                        }
+                    }
+                }
+                // 对于可取值完全被删除的动作，无法选择
+                if (!flag) {
+                    options[i].disabled = true;
+                } else {
+                    options[i].disabled = false;
+                }
+            }
+        }
+
+        function OnIntent2Update() {
+            let your_high_intent = document.getElementById("sel_your_high_intent-0");
+            options = your_high_intent.options;
+            // option_dict = intent_option_dict[agent[0]];
+            option_dict = intent_option_dict;
+
+            for (let i = 0; i < options.length; ++i) {
+                option = options[i];
+                for (k in option_dict) {
+                    for (item of option_dict[k]) {
+                        if (item.startsWith(option.value) || option.value == 'NA') {
+                            option.disabled = false;
+                        } else {
+                        }
+                    }
+                }
+            }
+
+            // 0103
+            let your_low_intent = document.getElementById("sel_your_low_intent-0");
+            options = your_low_intent.options;
+
+            for (let i = 0; i < options.length; ++i) {
+                option = options[i];
+                for (item of tasks_flat_list) {
+                    if (item.startsWith(option.value) || option.value == 'NA') {
+                        option.disabled = false;
+                    } else {
+                    }
+                }
+            }
+
+            if (belief_agent_list.length > 0) {
+
+                let other_high_intent = document.getElementById("sel_other_high_intent1-0");
+                options = other_high_intent.options;
+                agent = belief_agent_list[0];
+                option_dict = other_intent_option_dict[agent[0]];
+
+                for (let i = 0; i < options.length; ++i) {
+                    option = options[i];
+                    for (k in option_dict) {
+                        for (item of option_dict[k]) {
+                            if (item.startsWith(option.value) || option.value == 'NA') {
+                                option.disabled = false;
+                            } else {
+                            }
+                        }
+                    }
+                }
+
+                // 0103
+                let other_low_intent = document.getElementById("sel_other_low_intent1-0");
+                options = other_low_intent.options;
+                agent = belief_agent_list[0];
+                option_list = other_flat_tasks_dict[agent[0]];
+
+                for (let i = 0; i < options.length; ++i) {
+                    option = options[i];
+                    for (item of option_list) {
+                        if (item.startsWith(option.value) || option.value == 'NA') {
+                            option.disabled = false;
+                        } else {
+                        }
+                    }
+                }
+            }
+        }
+
+        function OnIntentChange() {
+            // var x = document.getElementById("sel_your_high_intent").value;
+            // if (event == undefined) {
+            //    return;
+            // }
+            // console.log(event);
+            // console.log(event.target.value);
+            // var x = event.target.value;
+            // prefix = event.target.id.split('-')[0];
+            // number = parseInt(event.target.id.split('-')[1]);
+
+            var x = document.getElementById("sel_your_high_intent-0").value;
+            prefix = 'sel_your_high_intent';
+            number = 0;
+
+            para1 = document.getElementById(prefix + '-' + (number+1));
+            para2 = document.getElementById(prefix + '-' + (number+2));
+            para3 = document.getElementById(prefix + '-' + (number+3));
+            para4 = document.getElementById(prefix + '-' + (number+4));
+
+            para1.options.length = 0;
+            para1.disabled = true;
+            para2.options.length = 0;
+            para2.disabled = true;
+            para3.options.length = 0;
+            para3.disabled = true;
+            para4.options.length = 0;
+            para4.disabled = true;
+
+            current_prefix = '' + x + '-';
+            const set = new Set();
+            for (let i = 1; i <= 4; ++i) {
+                if (intent_option_dict[i] == undefined) {
+                    continue;
+                }
+                items = intent_option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                para1.disabled = false;
+                showAndHide();
+                para1.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        para1.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        para1.options.add(new Option(item, item));
+                    }
+                }
+            }
+            // $('#sel_your_low_intent-0').trigger('change');
+        }
+
+        function OnIntPara1Change() {
+            if (event == undefined) {
+                return;
+            }
+            prefix = event.target.id.split('-')[0];
+
+            first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 2);
+            current_prefix = first.value + '-' + x + '-';
+
+            next.options.length = 0;
+            next.disabled = true;
+            para3 = document.getElementById(prefix + '-' + 3);
+            para4 = document.getElementById(prefix + '-' + 4);
+            para3.options.length = 0;
+            para3.disabled = true;
+            para4.options.length = 0;
+            para4.disabled = true;
+
+            const set = new Set();
+            for (let i = 2; i <= 4; ++i) {
+                if (intent_option_dict[i] == undefined) {
+                    continue;
+                }
+                items = intent_option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+        }
+
+
+        function OnIntPara2Change() {
+            if (event == undefined) {
+                return;
+            }
+            first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            second = document.getElementById(event.target.id.split('-')[0] + '-' + 1);
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 3);
+            next.options.length = 0;
+            current_prefix = first.value + '-' + second.value + '-' + x + '-';
+
+            para4 = document.getElementById(prefix + '-' + 4);
+            para4.options.length = 0;
+            para4.disabled = true;
+
+            const set = new Set();
+            for (let i = 2; i <= 4; ++i) {
+                if (intent_option_dict[i] == undefined) {
+                    continue;
+                }
+                items = intent_option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+        }
+
+
+        function OnIntPara3Change() {
+            if (event == undefined) {
+                return;
+            }
+            first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            second = document.getElementById(event.target.id.split('-')[0] + '-' + 1);
+            third = document.getElementById(event.target.id.split('-')[0] + '-' + 2);
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 4);
+            next.options.length = 0;
+            current_prefix = first.value + '-' + second.value + '-' + third.value + '-' + x + '-';
+
+            const set = new Set();
+            for (let i = 2; i <= 4; ++i) {
+                if (intent_option_dict[i] == undefined) {
+                    continue;
+                }
+                items = intent_option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+            // $('#sel_your_low_intent-0').trigger('change');
+        }
+
+        function OnIntent2Change() {
+            // var x = document.getElementById("sel_your_high_intent").value;
+            // if (event == undefined) {
+            //    return;
+            // }
+            // console.log(event);
+            // console.log(event.target.value);
+            // var x = event.target.value;
+            // prefix = event.target.id.split('-')[0];
+            // number = parseInt(event.target.id.split('-')[1]);
+
+            var x = document.getElementById("sel_other_high_intent1-0").value;
+            prefix = 'sel_other_high_intent1';
+            number = 0;
+
+            para1 = document.getElementById(prefix + '-' + (number+1));
+            para2 = document.getElementById(prefix + '-' + (number+2));
+            para3 = document.getElementById(prefix + '-' + (number+3));
+            para4 = document.getElementById(prefix + '-' + (number+4));
+
+            para1.options.length = 0;
+            para1.disabled = true;
+            para2.options.length = 0;
+            para2.disabled = true;
+            para3.options.length = 0;
+            para3.disabled = true;
+            para4.options.length = 0;
+            para4.disabled = true;
+
+            option_dict = other_intent_option_dict[belief_agent_list[0][0]];
+
+            current_prefix = '' + x + '-';
+            const set = new Set();
+            for (let i = 1; i <= 4; ++i) {
+                if (option_dict[i] == undefined) {
+                    continue;
+                }
+                items = option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                para1.disabled = false;
+                showAndHide();
+                para1.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        para1.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        para1.options.add(new Option(item, item));
+                    }
+                }
+            }
+            // $('#sel_your_low_intent-0').trigger('change');
+            showAndHideOptions();
+        }
+
+        function OnInt2Para1Change() {
+            if (event == undefined) {
+                return;
+            }
+
+            prefix = event.target.id.split('-')[0];
+
+            first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 2);
+            current_prefix = first.value + '-' + x + '-';
+
+            next.options.length = 0;
+            next.disabled = true;
+            para3 = document.getElementById(prefix + '-' + 3);
+            para4 = document.getElementById(prefix + '-' + 4);
+            para3.options.length = 0;
+            para3.disabled = true;
+            para4.options.length = 0;
+            para4.disabled = true;
+
+            option_dict = other_intent_option_dict[belief_agent_list[0][0]];
+
+            const set = new Set();
+            for (let i = 2; i <= 4; ++i) {
+                if (option_dict[i] == undefined) {
+                    continue;
+                }
+                items = option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+        }
+
+
+        function OnInt2Para2Change() {
+            if (event == undefined) {
+                return;
+            }
+            first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            second = document.getElementById(event.target.id.split('-')[0] + '-' + 1);
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 3);
+            next.options.length = 0;
+            current_prefix = first.value + '-' + second.value + '-' + x + '-';
+
+            para4 = document.getElementById(prefix + '-' + 4);
+            para4.options.length = 0;
+            para4.disabled = true;
+
+            const set = new Set();
+
+            option_dict = other_intent_option_dict[belief_agent_list[0][0]];
+
+            for (let i = 2; i <= 4; ++i) {
+                if (option_dict[i] == undefined) {
+                    continue;
+                }
+                items = option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+        }
+
+
+        function OnInt2Para3Change() {
+            if (event == undefined) {
+                return;
+            }
+            first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            second = document.getElementById(event.target.id.split('-')[0] + '-' + 1);
+            third = document.getElementById(event.target.id.split('-')[0] + '-' + 2);
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 4);
+            next.options.length = 0;
+            current_prefix = first.value + '-' + second.value + '-' + third.value + '-' + x + '-';
+
+            const set = new Set();
+            option_dict = other_intent_option_dict[belief_agent_list[0][0]];
+            for (let i = 2; i <= 4; ++i) {
+                if (option_dict[i] == undefined) {
+                    continue;
+                }
+                items = option_dict[i];
+                for (item of items) {
+                    if (!item.startsWith(current_prefix)) {
+                        continue;
+                    }
+                    remaining = item.slice(current_prefix.length);
+                    if (!remaining.includes('-')) {
+                        set.add(remaining);
+                    }
+                    else {
+                        set.add(remaining.split('-')[0]);
+                    }
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+            // $('#sel_your_low_intent-0').trigger('change');
+        }
+
+        function GetIntentKey() {
+            intent_key = '';
+            para1 = document.getElementById('sel_your_high_intent-0');
+            para2 = document.getElementById('sel_your_high_intent-1');
+            para3 = document.getElementById('sel_your_high_intent-2');
+            para4 = document.getElementById('sel_your_high_intent-3');
+            para5 = document.getElementById('sel_your_high_intent-4');
+            if (!para1.disabled) {
+                intent_key += para1.value;
+            }
+            if (!para2.disabled) {
+                intent_key += '-' + para2.value;
+            }
+            if (!para3.disabled) {
+                intent_key +=  '-' + para3.value;
+            }
+            if (!para4.disabled) {
+                intent_key += '-' + para4.value;
+            }
+            if (!para5.disabled) {
+                if (para5.value != '--') {
+                    intent_key += '-' + para5.value;
+                }
+            }
+            // console.log(intent_key);
+            return intent_key;
+        }
+
+        function GetOtherIntentKey() {
+            intent_key = '';
+            para1 = document.getElementById('sel_other_high_intent1-0');
+            para2 = document.getElementById('sel_other_high_intent1-1');
+            para3 = document.getElementById('sel_other_high_intent1-2');
+            para4 = document.getElementById('sel_other_high_intent1-3');
+            para5 = document.getElementById('sel_other_high_intent1-4');
+            if (!para1.disabled) {
+                intent_key += para1.value;
+            }
+            if (!para2.disabled) {
+                intent_key += '-' + para2.value;
+            }
+            if (!para3.disabled) {
+                intent_key +=  '-' + para3.value;
+            }
+            if (!para4.disabled) {
+                intent_key += '-' + para4.value;
+            }
+            if (!para5.disabled) {
+                if (para5.value != '--') {
+                    intent_key += '-' + para5.value;
+                }
+            }
+            // console.log(intent_key);
+            return intent_key;
+        }
+
+        function GetTasksCand() {
+            return tasks_flat_list;
+        }
+
+        function GetOtherTasksCand() {
+
+            if (belief_agent_list.length > 0) {
+                return other_flat_tasks_dict[belief_agent_list[0][0]];
+            }
+            return;
+        }
+
+        function OnTaskChange() {
+            taskCands = GetTasksCand();
+            if (event == undefined) {
+                return;
+            }
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 1);
+
+            next.options.length = 0;
+            next.disabled = true;
+
+            current_prefix = '' + x + '-';
+
+            const set = new Set();
+
+            for (item of taskCands) {
+                if (!item.startsWith(current_prefix)) {
+                    continue;
+                }
+                remaining = item.slice(current_prefix.length);
+                if (!remaining.includes('-')) {
+                    set.add(remaining);
+                }
+                else {
+                    set.add(remaining.split('-')[0]);
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+        }
+
+        // sel_your_low_intent-0
+        // sel_your_low_intent-1
+        // sel_your_low_intent-2
+        function OnTask1Para1Change() {
+            taskCands = GetTasksCand();
+            if (event == undefined) {
+                return;
+            }
+
+            // var first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            // var x = event.target.value;
+            // var next = document.getElementById(event.target.id.split('-')[0] + '-' + 2);
+
+            var first = document.getElementById('sel_your_low_intent-0');
+            var x = document.getElementById('sel_your_low_intent-1').value;
+            var next = document.getElementById('sel_your_low_intent-2');
+
+            const prevValue = next.value;
+
+            next.options.length = 0;
+            next.disabled = true;
+
+            current_prefix = first.value + '-' + x + '-';
+
+            const set = new Set();
+
+            for (item of taskCands) {
+                if (!item.startsWith(current_prefix)) {
+                    continue;
+                }
+                remaining = item.slice(current_prefix.length);
+                if (!remaining.includes('-')) {
+                    set.add(remaining);
+                }
+                else {
+                    set.add(remaining.split('-')[0]);
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+
+            const index = Array.from(next.options).findIndex(option => option.value === prevValue);
+            next.selectedIndex = index >= 0 ? index : 0;
+        }
+
+        function OnTask2Change() {
+            taskCands = GetOtherTasksCand();
+            if (taskCands == undefined || event == undefined) {
+                return;
+            }
+            var x = event.target.value;
+            var next = document.getElementById(event.target.id.split('-')[0] + '-' + 1);
+
+            next.options.length = 0;
+            next.disabled = true;
+
+            current_prefix = '' + x + '-';
+
+            const set = new Set();
+
+            for (item of taskCands) {
+                if (!item.startsWith(current_prefix)) {
+                    continue;
+                }
+                remaining = item.slice(current_prefix.length);
+                if (!remaining.includes('-')) {
+                    set.add(remaining);
+                }
+                else {
+                    set.add(remaining.split('-')[0]);
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+        }
+
+        // sel_other_low_intent1-0
+        // sel_other_low_intent1-1
+        // sel_other_low_intent1-2
+        function OnTask2Para1Change() {
+            taskCands = GetOtherTasksCand();
+            if (taskCands == undefined || event == undefined) {
+                return;
+            }
+
+            // var first = document.getElementById(event.target.id.split('-')[0] + '-' + 0);
+            // var x = event.target.value;
+            // var next = document.getElementById(event.target.id.split('-')[0] + '-' + 2);
+
+            var first = document.getElementById('sel_other_low_intent1-0');
+            var x = document.getElementById('sel_other_low_intent1-1').value;
+            var next = document.getElementById('sel_other_low_intent1-2');
+
+            const prevValue = next.value;
+
+            next.options.length = 0;
+            next.disabled = true;
+
+            current_prefix = first.value + '-' + x + '-';
+
+            const set = new Set();
+
+            for (item of taskCands) {
+                if (!item.startsWith(current_prefix)) {
+                    continue;
+                }
+                remaining = item.slice(current_prefix.length);
+                if (!remaining.includes('-')) {
+                    set.add(remaining);
+                }
+                else {
+                    set.add(remaining.split('-')[0]);
+                }
+            }
+            if (set.size > 0) {
+                next.disabled = false;
+                showAndHide();
+                next.options.add(new Option('NA', 'NA'));
+                for (item of set) {
+                    if (item in intent_desc_dict) {
+                        next.options.add(new Option(intent_desc_dict[item], item));
+                    } else {
+                        next.options.add(new Option(item, item));
+                    }
+                }
+            }
+
+            const index = Array.from(next.options).findIndex(option => option.value === prevValue);
+            next.selectedIndex = index >= 0 ? index : 0;
+        }
+
+        OnActionChange();
+        OnIntentChange();
+        showAndHideOptions();
+
+        var first_flag = true;
+        var flag_dict = {};
+        var rendering_flag = false;
+        var active_status = false;
+
+        function call() {
+            $.ajax({
+                url: '/' + mode + '/interact',
+                type: "POST",
+                dataType: "json",
+                async: false,
+                success: function(recv) {
+                    frame_data = recv.frame_data;
+                    if (frame_data != '') {
+                        latest_frame = frame_data;
+                    }
+                    finished_flag = recv.finished_flag;
+                    iteration = recv.iteration;
+                    active_status = recv.active;
+					sending = recv.sending;
+					fix_time_per_round = recv.fix_time_per_round;
+                    if ('action_option_dict' in recv && !isDeepEqual(action_option_dict, recv.action_option_dict)) {
+                        action_option_dict = recv.action_option_dict;
+                        updateActionOptions(action_option_dict, action_name_array);
+                    }
+
+                    document.querySelector('#round').innerHTML = '- ROUND ' + iteration + ' -';
+
+                    if (latest_frame != null) {
+                        $('#render').attr("src", latest_frame);
+                    }
+
+                    // 三个 desire 图片 popup
+                    var desireImgs = document.querySelectorAll('.image');
+                    if (iteration % 3 == 0) {
+                        for (img of desireImgs) {
+                            img.classList.add('zoom');
+                        }
+                    } else {
+                        for (img of desireImgs) {
+                            img.classList.remove('zoom');
+                        }
+                    }
+
+                    // console.log(finished_flag);
+                    // when rendering, donot show the label box;
+                    // if (!finished_flag) {
+
+					// sending == getting observation
+					if (sending && initialization) {
+						var bar = document.getElementById('bar');
+						bar.innerHTML = 'Collecting observations.';
+					}
+
+                    // 触发下一次任务
+					var finished_tasks = recv.finished_tasks;
+
+                    // u2u mode: 用户每次只需要参与一次
+                    if (mode == 'u2u' && finished_flag && (recv.done == 0 || recv.done == 2) && !only_done_once) {
+                        only_done_once = true;
+                        result = confirm("You've finished this, then you can choose to finish or play once again");
+                        if (result == true) {
+                            document.getElementById("finish").click();
+                        } else {
+                            document.getElementById("finish").click();
+                        }
+                    }
+
+                    if (recv.done == 0 && finished_flag && !only_done_once) {
+                        // alert("this task has been done!");
+                        // $('#new').attr("disabled", false);
+                        only_done_once = true;
+                        alert("You've finished the " + finished_tasks + "/3 task, please go on");
+                        document.getElementById("new").click();
+                    } else if (recv.done == 2 && finished_flag && !only_done_once) {
+                        only_done_once = true;
+                        alert("The " + finished_tasks + "/3 task has reached the max rounds (30), please go on");
+                        document.getElementById("new").click();
+                    }
+
+                    if (finished_tasks >= 3 && finished_flag && (recv.done == 0 || recv.done == 2) && !only_done_once) {
+                        only_done_once = true;
+                        result = confirm("You've finished all the assigned tasks, then you can choose to finish or play once again");
+                        if (result == true) {
+                            document.getElementById("new").click();
+                        } else {
+                            document.getElementById("finish").click();
+                        }
+                    }
+
+                    if (mode == 'u2u') {
+                        if (!finished_flag && !flag_dict[iteration]) {
+                           CloseBeliefAgentLabel();
+                        }
+
+                        // current iteration finished, executed only once
+                        if (finished_flag && !flag_dict[iteration]) {
+                            rendering_flag = false;
+
+							// 场景初始化
+							if (!initialization) {
+								var bar = document.getElementById('bar');
+								bar.innerHTML = 'Game started!';
+								initialization = true;
+							}
+
+                            // alert('round ' + iteration + ' finished!');
+                            flag_dict[iteration] = finished_flag;
+
+                            if (active_status) {
+                                ShowLabelingBox();
+                                if (belief_agent_list.length > 0) {
+                                    var bar = document.getElementById('bar');
+                                    bar.innerHTML = 'Inferring the other player\'s intents.';
+								}
+								else {
+									var bar = document.getElementById('bar');
+									bar.innerHTML = 'Updating your own intents.';
+								}
+                            }
+							if ((!active_status) && (finished_iteration != iteration)) {
+								waitting_interact();
+							}
+
+							finished_iteration = iteration;
+
+                            // ShowBeliefAgentLabel();
+                            $('#run').attr("disabled", false);
+                            // $('#run').attr("style", "color:black;");
+                        }
+                    }
+                    else {
+                        // when rendering, donot show the label box;
+                        if (!finished_flag) {
+                           CloseBeliefAgentLabel();
+                        }
+
+                        // current iteration finished, executed only once
+                        if (finished_flag && !flag_dict[iteration]) {
+                            rendering_flag = false;
+                            // alert('round ' + iteration + ' finished!');
+                            flag_dict[iteration] = finished_flag;
+                            ShowLabelingBox();
+                            // ShowBeliefAgentLabel();
+                            $('#run').attr("disabled", false);
+                            // $('#run').attr("style", "color:black;");
+							last_submit_time = new Date().getTime();
+							// console.log(last_submit_time);
+
+							if (belief_agent_list.length > 0) {
+                                var bar = document.getElementById('bar');
+                                bar.innerHTML = 'Inferring the other player\'s intents.';
+							}
+							else {
+								var bar = document.getElementById('bar');
+								bar.innerHTML = 'Updating your own intents.';
+							}
+
+							if (!initialization) {
+								initialization = true;
+							}
+
+                        }
+                    }
+                }
+            })
+        };
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+#bottom {
+    display: flex;
+    justify-content: space-around;
+    /* FIXME */
+    height: 28vh;
+    align-items: stretch;
+    background-color: rgba(38, 41, 55, 1);
+    border-radius: 2rem;
+    margin-top: 1rem;
+    overflow-y: auto;
+    min-height: 300px;
+}
+
+#bar {
+  width: 30%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  position: relative;
+}
+
+#divider {
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.3); /* 淡白色 */
+    margin: 0 10px; /* 在分割线两侧添加一些间距 */
+    height: 80%;
+    align-self: center; /* 确保垂直居中 */
+}
+
+#labels {
+  display: flex;
+  justify-content: center;
+  height: 28vh;
+  width: 55%;
+}
+
+.label {
+  width: 100%;
+  height: 100%;
+  /*margin:0 auto;*/
+  animation: leaves 0.5s ease-in-out 2;
+  -webkit-animation: leaves 0.5s ease-in-out 2;
+}
+
+.layout-label {
+/*
+  width: 100%;
+  height: 100%; */
+  padding: 1rem 0rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  /* flex-direction: row; */
+  justify-content: space-between;
+  align-items: center;
+  /*box-shadow: 0px 10px 40px 0px rgba(4,40,170,0.15);*/
+  border-radius: 20px;
+}
+
+.label-btn {
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 50%;
+  background: #2652DA;
+  border: none;
+  color: white;
+  width: 8rem;
+  /*height: 8rem;*/
+  height: auto;
+  aspect-ratio: 1 / 1;
+  transition: transform .2s ease-in-out; /* 只对 transform 属性应用过渡效果 */
+  transform-origin: center; /* 确保缩放中心在元素内部 */
+}
+
+/* 添加禁用状态的样式 */
+.label-btn:disabled,
+.label-btn.disabled {
+  cursor: not-allowed;
+  background: #A0A0A0; /* 更浅的灰色背景 */
+  opacity: 0.6; /* 降低不透明度 */
+  transform: none; /* 移除任何可能的变换效果 */
+}
+
+.label-btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  transform: scale(1.25);
+}
+
+#layout-2-3 {
+    position: relative; /* 新增这一行 */
+}
+
+.top-para {
+    padding-top: 0;
+    margin-top: 8px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.bottom-para {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+select {
+    border: 1px solid rgba(255,255,255,1);
+    border-radius: 4px;
+}
+
+select:disabled {
+    border: 1px solid rgba(183,183,183,1);
+}
+
+select, option {
+    font-size: 1.3rem;
+    font-weight: 300;
+    background-color: black;
+    color: white;
+}
+.explanation-wrapper {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.explanation-label {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin-top: 0rem;
+}
+
+.explanation-input {
+  width: 110%;
+  min-height: 3rem;
+  padding: 0.5rem;
+  background-color: rgba(38, 41, 55, 1);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 1.2rem;
+  resize: vertical;
+}
+
+.explanation-input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.8);
+}
+
+
+/* 如果 name12 被隐藏(display:none),则其上方的分隔线也隐藏 */
+.name12-divider:has(+ #name12[style*="display: none"]) {
+  display: none;
+}
+
+/* 如果 name12 为空,则其上方的分隔线也隐藏 */
+.name12-divider:has(+ #name12:empty) {
+  display: none;
+}
+
+.explanation-divider {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* 新增样式 */
+.bar-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+#current-status {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+#last-action-status {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.status-label {
+    font-weight: 500;
+}
+
+#last-action-text {
+    font-weight: 500;
+    font-style: italic;
+    color: rgba(10, 115, 255, 0.95);
+}

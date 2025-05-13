@@ -1,0 +1,58 @@
+import pickle
+
+AGENTS = [
+            {
+            'id': 1,
+            'name': 'agent 1',
+            'color': [1,0,0],
+            'pos': [400, -400],
+            'attention': 0,
+            'rotate': 0,
+            'holding':[4],
+            'desire':{'active': 1, 'social': 1, 'helpful': 1},
+            'intent':{'ind': ['put_into', 4, 3], 'soc': None, 'comm': None,  'ref': None},
+           },
+
+            {
+            'id': 2,
+            'name': 'agent 2',
+            'color': [0,1,0],
+            'pos': [-400, -400],
+            'attention': 0,
+            'rotate': 0,
+            'desire':{'active': 1, 'social': 1, 'helpful': 1},
+            }
+        ]
+
+OBJS = [
+            {
+            'id':3,
+            'name': 'cabinet',
+            'color': [0.25,0.35,0.35],
+            'size': [300, 200],
+            'pos': [0, 350],
+            'rotate':0,
+            'is_container':True,
+            'open':False
+            },
+
+            {
+            'id': 4,
+            'name': 'book',
+            'color': [0.45,1.95,1.95],
+            'size': [40, 40],
+            'pos': [400, -400],
+            'rotate':0,
+            'being_held_id':[1],
+            }
+        ]
+
+LANDMARKS = []
+
+with open("helping.pkl", "wb") as f:
+    pickle.dump([AGENTS, OBJS, LANDMARKS], f)
+
+# {'name': 'door',
+# 'color': [0.45,0.35,0.35],
+# 'size': [300, 20],
+# 'pos': [0, 280]},

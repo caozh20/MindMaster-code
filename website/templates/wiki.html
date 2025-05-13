@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki</title>
+    <link rel="stylesheet" href="../static/css/wiki.css">
+    <style>
+        /* 样式：浮动按钮的位置和外观 */
+        .floating-button {
+          position: fixed;
+          top: 10px; /* 距离页面顶部的距离 */
+          left: 10px; /* 距离页面左侧的距离 */
+          padding: 10px 20px;
+          background-color: #007bff; /* 按钮背景色 */
+          color: white; /* 按钮文字颜色 */
+          font-size: 16px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          text-decoration: none; /* 去掉链接的默认下划线 */
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 按钮的阴影效果 */
+          z-index: 1000; /* 保证按钮在页面的最上层 */
+        }
+    
+        .floating-button:hover {
+          background-color: #0056b3; /* 鼠标悬停时按钮颜色变深 */
+        }
+      </style>
+</head>
+<body style="display: flex; flex-direction: column; flex-grow: 1;">
+    <a href="/u2u/qualtrics" class="floating-button">
+        回看教程内容
+      </a>
+    
+
+    <div class="container" style="display: flex; width: 100%;" >
+        <div class="mysidebar" id="sidebar_action" style="padding:10px;">
+          <!-- Sidebar content for Action -->
+      </div>
+        <div class="mysidebar" id="sidebar_intent" style="padding:10px;">
+          <!-- Sidebar content for Intent -->
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div class="mysidebar" id="sidebar_value" style="padding:10px;">
+            <!-- Sidebar content for Value -->
+        </div>
+        <div class="mysidebar" id="sidebar_qa" style="padding:10px;">
+            <!-- Sidebar content for Action -->
+        </div>
+      </div>
+        
+    </div>
+
+    <button id="backToTopBtn" title="回到顶部">⬆️</button>
+
+    <div id="div_gif">
+        <div class="divider">Action</div>
+
+        <div class="section" style="display: flex">
+            
+            <div>
+                <div class="gallery" id="gallery_gif">
+                    <!-- GIF images and descriptions will be dynamically generated in JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="div_intent">
+        <div class="divider">Intent</div>
+    
+        <div class="section" style="display: flex">
+            
+            <div>
+                
+                <div class="gallery" id="gallery_intent">
+                    <!-- GIF images and descriptions will be dynamically generated in JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="div_value">
+        <div class="divider">Value</div>
+    
+        <div class="section" style="display: flex">
+            
+            <div>
+                
+                <div class="gallery" id="gallery_value">
+                    <!-- GIF images and descriptions will be dynamically generated in JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="div_qa">
+        <div class="divider">常见问题</div>
+
+        <div class="section" style="display: flex">
+            
+            <div>
+                <div class="gallery" id="gallery_qa">
+                    <!-- GIF images and descriptions will be dynamically generated in JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/wiki.js"></script>
+    
+</body>
+
+
+</html>

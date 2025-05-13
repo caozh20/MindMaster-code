@@ -1,0 +1,6 @@
+{
+    "110": "{\"active\": 0.5, \"active_cf\": 0.5, \"social\": 0.7, \"social_cf\": 0.8, \"helpful\": 0, \"helpful_cf\": 0.5}",
+    "130": "{\"active\": 0.5, \"active_cf\": 0.5, \"social\": 1, \"social_cf\": 0.9, \"helpful\": 0.5, \"helpful_cf\": 0.5}",
+    "213": "{\"active\": 0, \"active_cf\": 0.5, \"social\": 1, \"social_cf\": 0.8, \"helpful\": 1, \"helpful_cf\": 0.6}",
+    "241": "{\"active\": 1.0, \"active_cf\": 0.8, \"social\": 1.0, \"social_cf\": 0.9, \"helpful\": 1.0, \"helpful_cf\": 0.6}"
+}

@@ -1,0 +1,30 @@
+CLASSROOM = {
+    "name": "2_inform_1_4",
+    "agents": [{'id': 1,
+                'name': 'prof',
+                'pos': [400, 400],
+                'attention': -0.5,
+                'rotate': -0.5,
+                'desire':{'active': 0, 'social': 1, 'helpful': 0}},
+
+                {'id': 2,
+                'name': 'stu 1',
+                'pos': [-400, -400],
+                'attention': 0.3,
+                'rotate': 0.3,
+                'desire':{'active': -1, 'social': 0, 'helpful': 0},
+                'intent':{'ind': None, 'soc': ["inform", 1, 4], 'comm': None,  'ref': [1, 4], 'type':"HIHU"}},
+
+                {'id': 3,
+                'name': 'stu 2',
+                'pos': [400, -400],
+                'attention': 0.5,
+                'rotate': 0.5,
+                'desire':{'active': 1, 'social': 1, 'helpful': 2}}],
+    "objects": [  {'id': 4,
+                'name': 'object ipad',
+                'size': [50, 50],
+                'pos': [-300, -300],
+                'rotate':0}],
+    "landmarks": None
+}

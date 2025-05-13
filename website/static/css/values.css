@@ -1,0 +1,73 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
+.emoji, .side-emoji {
+  font-family: 'Noto Color Emoji', sans-serif;
+}
+
+#selectedMyIntention, #selectedOtherIntention {
+    font-size:1.3rem;
+}
+
+#emoji-container-1, #emoji-container-2 {
+    position: absolute;
+    top: 10px; /* 调整顶部位置 */
+    left: 10px; /* 调整左侧位置 */
+    display: flex;
+    justify-content: space-around;
+    width: auto; /* 设置宽度 */
+    visibility: hidden; /* 默认隐藏 */
+    flex-direction: column; /* 垂直排列 */
+    align-items: center; /* 水平居中 */
+}
+
+.emoji-row {
+    display: flex; /* 水平排列 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    width: 100%;
+    margin-bottom: 5px; /* emoji 和名字之间的间距 */
+    background-color: rgba(255, 255, 255, 0.4); /* 半透明背景 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 轻微阴影 */
+    border-radius: 8px; /* 圆角 */
+    padding: 5px 0;
+}
+
+.emoji {
+    position: relative;
+    font-size: 2rem;
+    margin: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.emoji.divider::before {
+    content: '';
+    position: absolute;
+    left: calc(-8px - 2px/2);  /* 半个边距宽度减去分割线宽度的一半 */
+    top: 50%;
+    height: 95%;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.3); /* 淡白色 */
+    transform: translateY(-50%);
+}
+
+.agent-name {
+    font-size: 1.8rem;
+    text-align: center; /* 居中对齐 */
+    display: none; /* 默认隐藏 */
+    font-family: 'Times New Roman', Times, serif; /* 设置字体 */
+}
+
+.name-up {
+    order: -1;
+    margin-bottom: 0px; /* 当在顶部时，添加底部margin */
+}
+
+.name-down {
+    order: 1;
+    margin-top: 0px; /* 当在底部时，添加顶部margin */
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .room-container {
+            display: grid;
+            grid-template-columns: repeat(4, 150px); /* 每行显示4个房间 */
+            gap: 10px;
+            padding: 20px;
+        }
+        .room-container_warm_up {
+            display: grid;
+            grid-template-columns: repeat(1, 150px); /* 每行显示4个房间 */
+            gap: 10px;
+            padding: 20px;
+        }
+        .room, .create-room {
+            width: 150px;
+            height: 100px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .room:hover {
+            background-color: lightgray;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1001;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        /* .create-room {
+            background-color: lightgreen;
+        } */
+         /* 分割线样式 */
+        .divider {
+        width: 2px; /* 分割线宽度 */
+        height: 100%; /* 分割线高度 */
+        background: repeating-linear-gradient(
+            to bottom,
+            red,
+            #ccc 4px,
+            transparent 4px,
+            transparent 8px
+        ); /* 虚线效果 */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 房间容器 -->
+    <div style="display: flex; flex-direction: row;">
+        <div style="display: flex; flex-direction: column;">
+            <div class="room-container_warm_up" id="warm_up_1"></div>
+            <div class="room-container_warm_up" id="warm_up_2"></div>
+            <div class="room-container_warm_up" id="warm_up_3"></div>
+            <div class="room-container_warm_up" id="warm_up_4"></div>
+        </div>
+        <div class="divider"></div> <!-- 竖直虚线分割 -->
+        <div style="display: flex; flex-direction: column;">
+            <div class="room-container" id="exp_1"></div>
+            <div class="room-container" id="exp_2"></div>
+            <div class="room-container" id="exp_3"></div>
+            <div class="room-container" id="exp_4"></div>
+        </div>
+        
+        
+        <div class="room-container" id="others"></div>
+    </div>
+
+    <div id="popup">
+        <p>游戏房间最多供两个人游玩，请重新选择房间或者创建新房间！</p>
+        <button onclick="hidePopup()">我知道了</button>
+    </div>
+
+    <script>
+        const GROUP_NUM = 4
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        hidePopup()
+
+        // 动态生成房间矩形
+        function createRoomElement(room) {
+            const roomDiv = document.createElement('div');
+            roomDiv.className = 'room';
+            // roomDiv.innerHTML = `
+            //     房间: ${room.name}<br>
+            //     用户数量: ${room.user_num}<br>
+            //     状态: ${room.status}
+            // `;
+            roomDiv.innerHTML = `
+                ${room.room_name}<br>
+                用户数量: ${room.user_num}<br>
+            `;
+            roomDiv.onclick = () => handleRoomAction('join', room);
+            return roomDiv;
+        }
+
+        // 处理点击房间或创建新房间
+        function handleRoomAction(action, room = null) {
+            const userUuid = document.cookie.match(/sid=([^;]+)/)[1];
+            const data = {
+                action: action,
+                room: room, 
+                sid: userUuid, 
+            };
+
+            if (action=='join' && room.user_num >= 2){
+                showPopup()
+                return NaN
+            }
+
+            // 使用fetch向后端发送请求
+            fetch('/u2u/join_room', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())  // 将响应转换为JSON
+            .then(data => {
+                // 如果后端返回错误，显示错误信息
+                if (data.status === 'error') {
+                    displayErrorMessage(data.error);
+                } 
+                // 如果操作成功，跳转到新的页面
+                else if (data.status === 'success' && data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                displayErrorMessage('An unexpected error occurred.');
+            });
+        }
+
+        // 从后端获取房间信息并动态生成房间
+        function loadRooms() {
+            fetch('/u2u/api/rooms')
+                .then(response => response.json())
+                .then(rooms => {
+                    const roomContainerList = document.getElementsByClassName('room-container')
+                    for (let element of roomContainerList) {
+                        element.innerHTML = '';
+                    }
+                    const roomContainerListWarmUp = document.getElementsByClassName('room-container_warm_up')
+                    for (let element of roomContainerListWarmUp) {
+                        element.innerHTML = '';
+                    }
+                    const roomContainer = document.getElementById('others')
+                    roomContainer.innerHTML = '';  // 清空之前的内容
+                    // const roomContainer_exp = document.getElementById('exp')
+                    // const roomContainer_warm_up = document.getElementById('warm_up')
+                    // roomContainer_exp.innerHTML = ''
+                    // roomContainer_warm_up.innerHTML = ''
+
+                    // 动态创建房间矩形
+                    rooms.forEach(room => {
+                        const roomElement = createRoomElement(room);
+                        add_flag = false;
+                        for (let i = 1; i <= 4; i++) {
+                            
+                            if (room.room_name.includes(`实验组${i}`)) {
+                                let roomContainer_exp = document.getElementById(`exp_${i}`)
+                                roomContainer_exp.appendChild(roomElement);
+                                add_flag = true;
+                                break;
+                            }
+                            else if (room.room_name.includes(`热身组${i}`)) {
+                                let roomContainer_warm_up = document.getElementById(`warm_up_${i}`)
+                                roomContainer_warm_up.appendChild(roomElement);
+                                add_flag = true;
+                                break;
+                            }
+                        }
+                        if (!add_flag) {
+                            roomContainer.appendChild(roomElement);
+                        }
+                    });
+
+                    // 创建“创建新房间”的矩形
+                    const createRoomDiv = document.createElement('div');
+                    createRoomDiv.className = 'create-room';
+                    createRoomDiv.innerText = '创建新房间';
+                    createRoomDiv.onclick = () => handleRoomAction('create');
+                    roomContainer.appendChild(createRoomDiv);
+                })
+                .catch(error => {
+                    console.error('Error fetching rooms:', error);
+                });
+        }
+
+        // 页面加载时获取房间信息, 并且每隔3秒刷新一次房间列表
+        window.onload = function() {
+            loadRooms();  // 首次加载时获取房间
+            setInterval(loadRooms, 3000);  // 每隔3秒重新加载一次房间信息
+        };
+    </script>
+
+</body>
+</html>

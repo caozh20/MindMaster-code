@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>MindMaster Roleplay</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/bottom_labels.css">
+    <link rel="stylesheet" href="../static/css/values.css">
+    <link rel="stylesheet" href="../static/css/status_sidebar.css">
+    <link rel="stylesheet" href="../static/css/colors.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="../static/js/constants.js"></script>
+    <script type="text/javascript" src="../static/js/utils.js"></script>
+    <script type="text/javascript" src="../static/js/labels.js"></script>
+    <script type="text/javascript" src="../static/js/update.js"></script>
+    <script type="text/javascript" src="../static/js/values.js"></script>
+    <script type="text/javascript" src="../static/js/status.js"></script>
+    <script type="text/javascript" src="../static/js/connection.js"></script>
+    <script type="text/javascript" src="../static/js/heartbeat.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div id="game-logo">
+            <img src="../static/imgs/logo_400.png" alt="logo" id="logo">
+        </div>
+        <div id="intention">
+            <p id="intention-para">
+                My initial assigned intention is to achieve the following target state:<br>
+                我的初始分配意图是达成以下的最终状态: <br>
+<!--                #2652DA-->
+                <!-- <span class="target-state">target state:</span>  -->
+                <b><span style="color: rgba(10, 115, 255, 1);">"{{ intent_desc }}"</span></b>
+            </p>
+            <p id="other-value-para">
+                {{ partner_name }}'s values: <br>
+<!--                #2652DA-->
+                <b><span style="color: rgba(10, 115, 255, 1);">"{{ partner_value_desc }}"</span></b>
+            </p>
+        </div>
+
+        <div id="desire-panel">
+            <div class="desire-item">
+                <div class="text-container">
+                    <span>Helpful</span>
+                    <span class="tooltip" title="Whether you want to help others or not.">
+                        <img src="../static/imgs/icon.svg" alt="info icon" class="icon">
+                    </span>
+                </div>
+                <div class="bar">
+                    <div class="scale-point">
+                        <span class="side-emoji">😈</span>
+                        <span class="side-label">harmful</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">🙅🏻‍♀️</span>
+                        <span class="side-label">unhelpful</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">👼</span>
+                        <span class="side-label">helpful</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">👼👼</span>
+                        <span class="side-label">very helpful</span>
+                    </div>
+                </div>
+            </div>
+            <div class="desire-item">
+                <div class="text-container">
+                    <span>Social</span>
+                    <span class="tooltip" title="Whether you prefer social interaction or not">
+                        <img src="../static/imgs/icon.svg" alt="info icon" class="icon">
+                    </span>
+                </div>
+                <div class="bar">
+                    <div class="scale-point">
+                        <span class="side-emoji">🫣</span>
+                        <span class="side-label">unsocial</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">😐</span>
+                        <span class="side-label">neutral</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">🤗</span>
+                        <span class="side-label">social</span>
+                    </div>
+                </div>
+            </div>
+            <div class="desire-item">
+                <div class="text-container">
+                    <span>Active</span>
+                    <span class="tooltip" title="Whether you prefer physical motion or not.">
+                        <img src="../static/imgs/icon.svg" alt="info icon" class="icon">
+                    </span>
+                </div>
+                <div class="bar">
+                    <div class="scale-point">
+                        <span class="side-emoji">😴</span>
+                        <span class="side-label">inactive</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">🧘</span>
+                        <span class="side-label">neutral</span>
+                    </div>
+                    <div class="scale-point">
+                        <span class="side-emoji">🏃</span>
+                        <span class="side-label">active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div id="game">
+            <div class="center">
+                <img id="render" src="../static/imgs/logo_400.png" onclick="getClickPosition(event)">
+                <div id="emoji-container-1">
+                    <div class="emoji-row">
+                        <span class="emoji" data-attribute="helpful">👼</span>
+                        <span class="emoji divider" data-attribute="social">🤗</span>
+                        <span class="emoji divider" data-attribute="active">🏃</span>
+                    </div>
+                    <div class="agent-name">agent 1</div>
+                </div>
+                <div id="emoji-container-2">
+                    <div class="emoji-row">
+                        <span class="emoji" data-attribute="helpful">👼</span>
+                        <span class="emoji divider" data-attribute="social">🤗</span>
+                        <span class="emoji divider" data-attribute="active">🏃</span>
+                    </div>
+                    <div class="agent-name">agent 2</div>
+                </div>
+            </div>
+            <div id="bottom">
+                <div id="bar">
+                    <div class="bar-content">
+                        <div id="last-action-status">
+                            <span class="status-label" id="other-action-label">last action:</span>
+                            <span id="last-action-text"></span>
+                        </div>
+                        <div id="current-status">Setting up the game …</div>
+                    </div>
+                </div>
+                <div id="divider"></div>
+                <div id="labels" style="text-align: left;" >
+                    <div class="label" id="2.1" style="display:none;">
+                        <div id="layout-2-1" class="layout-label">
+                            <div id="2.1.1" style="display:flex">
+                                <p id="name11" class="top-para"></p>
+                                <p><span id="selectedOtherIntention"></span></p>
+                                <select id="sel_other_high_intent1-0" onchange="OnIntent2Change()" >
+                                        <option selected="selected" value="NA">NA</option>
+                                        <option value='Observe' disabled>Observe</option>
+                                        <option value='Get' disabled>Get..From..</option>
+                                        <option value='Give' disabled>Give..To..</option>
+                                        <option value='Find' disabled>Find</option>
+                                        <option value='Open' disabled>Open</option>
+                                        <option value='PutInto' disabled>Put..Into..</option>
+                                        <option value='PutOnto' disabled>Put..Onto..</option>
+                                        <option value='PlayWith' disabled>Play..With..</option>
+                                        <option value='RespondTo' disabled>RespondTo</option>
+                                        <option value='Inform' disabled>Inform</option>
+                                        <option value="Greet" disabled>Greet</option>
+                                        <option value='Help' disabled>Help</option>
+                                        <option value='RequestHelp' disabled>RequestHelp</option>
+                                        <option value='Harm' disabled>Harm</option>
+                                    </select>
+                                <select id="sel_other_high_intent1-1" disabled onchange="OnInt2Para1Change()">
+                                        </select>
+                                <select id="sel_other_high_intent1-2" disabled onchange="OnInt2Para2Change()">
+                                    </select>
+                                <select id="sel_other_high_intent1-3" disabled onchange="OnInt2Para3Change()">
+                                        </select>
+                                <select id="sel_other_high_intent1-4" disabled onchange="OnInt2Para4Change()">
+                                        </select>
+                                <br />
+
+                                <hr style="width: 100%; margin: 10px 0;" class="name12-divider" style="border-color: rgba(255, 255, 255, 0.3);">
+
+                                <p id="name12" class="bottom-para"></p>
+                                <div style="margin-bottom: 0.5em;">
+                                    <label for="sel_other_desire_helpful" style="font-size: 1.2em;">Helpful:</label>
+                                    <span style="margin-right: 5px; margin-left: 5px" class="value-span">harmful</span>
+                                    <input id="sel_other_desire_helpful" class="helpful-field" type="range" min="0" max="1" step="0.05" value="0.5" oninput="updateValue('helpful-value', this.value)"/>
+                                    <span style="margin-left: 5px;" class="value-span">very helpful</span>
+                                    <span id="helpful-value" style="display: none">0.5</span>
+                                </div>
+
+                                <div style="margin-bottom: 0.5em;">
+                                    <label for="sel_other_desire_social" style="font-size: 1.2em;">Social:</label>
+                                    <span style="margin-right: 5px; margin-left: 5px" class="value-span">unsocial</span>
+                                    <input id="sel_other_desire_social" class="social-field" type="range" min="0" max="1" step="0.05" value="0.5" oninput="updateValue('social-value', this.value)"/>
+                                    <span style="margin-left: 5px;" class="value-span">social</span>
+                                    <span id="social-value" style="display: none">0.5</span>
+                                </div>
+
+                                <div style="margin-bottom: 0.5em;">
+                                    <label for="sel_other_desire_active" style="font-size: 1.2em;">Active:</label>
+                                    <span style="margin-right: 5px; margin-left: 5px" class="value-span">inactive</span>
+                                    <input id="sel_other_desire_active" class="active-field" type="range" min="0" max="1" step="0.05" value="0.5" oninput="updateValue('active-value', this.value)"/>
+                                    <span style="margin-left: 5px;" class="value-span">active</span>
+                                    <span id="active-value" style="display: none">0.5</span>
+                                </div>
+                                
+                                
+                                <hr style="width: 100%; margin: 10px 0;" class="explanation-divider">
+
+                                <div class="explanation-wrapper">
+                                    <label for="explanation1" class="explanation-label">Explanation:</label>
+                                    <textarea id="explanation1" class="explanation-input" 
+                                              placeholder="Please explain your reasoning..."></textarea>
+                                </div>
+                            </div>
+                            <button class="label-btn" name="intent_inverse" id="btn1" onclick="Label1Done()">Done</button>
+                        </div>
+                    </div>
+                    <div class="label" id="2.2" style="display:none;">
+                        <div id="layout-2-2" class="layout-label">
+                            <div id="layout-2-2-sel">
+                                <p class="top-para">My (high-level) intention: </p>
+                                <p><span id="selectedMyIntention"></span></p>
+                                <select id="sel_your_high_intent-0" onchange="OnIntentChange()">
+                                        <option selected="selected" value="NA">NA</option>
+                                        <option value='Observe' disabled>Observe</option>
+                                        <option value='Get' disabled>Get..From..</option>
+                                        <option value='Give' disabled>Give..To..</option>
+                                        <option value='Find' disabled>Find</option>
+                                        <option value='Open' disabled>Open</option>
+                                        <option value='PutInto' disabled>Put..Into..</option>
+                                        <option value='PutOnto' disabled>Put..Onto..</option>
+                                        <option value='PlayWith' disabled>Play..With..</option>
+                                        <option value='RespondTo' disabled>RespondTo</option>
+                                        <option value='Inform' disabled>Inform</option>
+                                        <option value="Greet" disabled>Greet</option>
+                                        <option value='Help' disabled>Help</option>
+                                        <option value='RequestHelp' disabled>RequestHelp</option>
+                                        <option value='Harm' disabled>Harm</option>
+                                </select>
+                                <select id="sel_your_high_intent-1" disabled onchange="OnIntPara1Change()"></select>
+                                <select id="sel_your_high_intent-2" disabled onchange="OnIntPara2Change()"></select>
+                                <select id="sel_your_high_intent-3" disabled onchange="OnIntPara3Change()"></select>
+                                <select id="sel_your_high_intent-4" disabled onchange="OnIntPara4Change()"></select>
+                                <br />
+
+                                <hr style="width: 100%; margin: 10px 0;" class="explanation-divider">
+                                <div class="explanation-wrapper">
+                                    <label for="explanation2" class="explanation-label">Explanation:</label>
+                                    <textarea id="explanation2" class="explanation-input" 
+                                              placeholder="Please explain your reasoning..."></textarea>
+                                </div>
+                            </div>
+                            <button class="label-btn" name="intent" id="btn2" onclick="Label2Done()">Done</button>
+                        </div>
+                    </div>
+                    <div class="label" id="2.3" style="display:none;">
+                        <div id="layout-2-3" class="layout-label">
+                            <div id="layout-2-3-sel">
+                                <p class="top-para">My action:</p>
+                                <select name="action" id="sel_action" onchange="OnActionChange()" class="selector">
+                                        <option value="ActionWait"> Wait </option>
+                                        <option value="ActionExplore"> Explore </option>
+                                        <option value="ActionRotateTo"> RotateTo </option>
+                                        <option value="ActionPlay"> Play </option>
+                                        <option value="ActionMoveTo"> MoveTo </option>
+                                        <option value="ActionMoveToAttention"> MoveToAttention </option>
+                                        <option value="ActionUnlock"> Unlock </option>
+                                        <option value="ActionOpen"> Open </option>
+                                        <option value="ActionClose"> Close </option>
+                                        <option value="ActionGrab"> Grab </option>
+                                        <option value="ActionGiveTo"> GiveTo </option>
+                                        <option value="ActionWaveHand"> WaveHand </option>
+                                        <option value="ActionPointTo"> PointTo </option>
+                                        <option value="ActionFollowGaze"> FollowGaze </option>
+                                        <option value="ActionNodHead"> NodHead </option>
+                                        <option value="ActionShakeHead"> ShakeHead </option>
+                                        <option value="ActionPutInto"> PutInto </option>
+                                        <option value="ActionPutOnto"> PutOnto </option>
+                                        <option value="ActionPutDown"> PutDown </option>
+                                        <option value="ActionFollowPointing"> FollowPointing </option>
+                                        <option value="ActionEat"> Eat </option>
+                                        <option value="ActionSmash"> Smash </option>
+                                        <option value="ActionSpeak"> Speak </option>
+                                        <option value="ActionPerform"> Perform </option>
+                                </select>
+                                <select name="para1" id="sel_action_para1" class="selector1" disabled>
+                                    </select>
+                                <select name="para2" id='sel_action_para2' class="selector2" disabled>
+                                    </select>
+                                
+                                <hr style="width: 100%; margin: 10px 0;" class="explanation-divider">
+                                <div class="explanation-wrapper">
+                                    <label for="explanation3" class="explanation-label">Explanation:</label>
+                                    <textarea id="explanation3" class="explanation-input" 
+                                              placeholder="Please explain your reasoning..."></textarea>
+                                </div>
+                            </div>
+                            <button class="label-btn" name="run" id="run">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  dynamic change  -->
+    <div id="right-sidebar">
+        <div id="status-bar">
+            <div id="round-container">
+                <div id="round">- ROUND -</div>
+            </div>
+
+            <div id="score-status" style="display: none">
+                <p id="my-score">My Score:</p>
+                <div id="status-text">
+                    <p id="goal-completion">#1 Goal Completion: 0</p>
+                    <p id="value-consistency">#2 Value Consistency: 0.00%</p>
+                    <p id="active-score">   #a active value score: 0.00</p>
+                    <p id="social-score">   #b social value score: 0.00</p>
+                    <p id="self-goal-score">#c self-goal value score: 0.00</p>
+                    <p id="helpful-score">  #d helpful value score: 0.00</p>
+                </div>
+            </div>
+
+            <div id="help-btn">
+                <a href="wiki" target="_blank" class="help-button">❓Help</a>
+            </div>
+        </div>
+        <div id="user-room-status">
+            <h3>Players & Room Status</h3>
+            <div id="room-status">
+                <p><strong>Room ID:</strong> <span id="room-id"></span></p>
+                <p><strong>Room Status:</strong> <span id="room-status-value"></span></p>
+            </div>
+            <div id="user-status">
+                <p><strong>Player:</strong> <span id="user-email"></span></p>
+                <p><strong>Status:</strong> <span id="user-status-value"></span></p>
+            </div>
+            <div id="partner-status">
+                <p><strong>Other player:</strong> <span id="partner-email"></span></p>
+                <p><strong>Other player Status:</strong> <span id="partner-status-value"></span></p>
+                <p><strong>Other player's last action:</strong> <span id="other-action"></span></p>
+            </div>
+            <!-- New element for status message -->
+            <div id="game-status-message" class="status-message"></div>
+        </div>
+    </div>
+
+    <a id="new" href="{{ url_for('web_base.reset') }}" style="display:none;">reset(当前只做测试用)</a>
+    <a id="break" href="{{ url_for('web_base.show_break') }}" style="display:none;">break</a>
+    <a id="finish" href="{{ url_for('web_base.finish') }}" style="display:none;">finish</a>
+    <a id="warm_up_break" href="{{ url_for('web_base.show_warm_up_break') }}" style="display:none;">warm_up_break</a>
+
+    <script>
+        // $('#new').attr("disabled", true);
+        showAndHide();
+        // 每 5 秒检查一次 sid (session id)
+        // setInterval(checkSid, 5000);
+
+        agentId = {{ agent_id | int }};
+        partnerId = {{ partner_agent_id | int }};
+
+        $('#other-action-label').text('agent_' + partnerId + '\'s last action:');
+
+        const active = {{ my_value.active | float }};
+        const social = {{ my_value.social | float }};
+        const helpful = {{ my_value.helpful | float }};
+
+        decideValueBars(active, social, helpful);
+
+        const valuesPosRatio = {{ values_pos_ratio | tojson }};
+
+        // control test mode
+        const control_test = {{ control_test | tojson }};
+
+        if (control_test) {
+            // display to show
+            $('#other-value-para').css('display', 'block');
+            $('#value-consistency').text('#2 Value Consistency: NA');
+            $('#score-status').css('display', 'none');
+        } else {
+            delete valuesPosRatio[partnerId];
+        }
+
+        setEmojiPosition(agentId, valuesPosRatio);
+
+        const partnerActive = {{ partner_value.active | float }};
+        const partnerSocial = {{ partner_value.social | float }};
+        const partnerHelpful = {{ partner_value.helpful | float }};
+
+        decideValueEmoji(agentId, active, social, helpful);
+
+        const imageElement = document.getElementById('render');
+        isMouseOverImage = false;
+        imageElement.addEventListener('mousemove', function(event) {
+            isMouseOverImage = true;
+            onMouseMove(event);
+        });
+        imageElement.addEventListener('mouseleave', function(event) {
+            isMouseOverImage = false;
+            hideClickMarker(event);
+        });
+
+        window.addEventListener('resize', () => {
+            setEmojiPosition(agentId, valuesPosRatio);
+        });
+
+        // from first page load
+        var action_option_dict = {{ action_option_dict | tojson }};
+
+        console.log('before action_option_dict: ', action_option_dict);
+        action_option_dict = transformActionOptionDict(action_option_dict);
+        console.log('after action_option_dict: ', action_option_dict);
+
+        var world_id_name_dict = {{ world_id_name_dict | tojson }};
+
+        // intent: means high level, tasks: means low level
+        var intent_option_dict = {{ intent_option_dict | tojson }};
+
+        // intent: means high level, tasks: means low level
+        var other_intent_option_dict = {{ other_intent_option_dict | tojson }};
+
+        var belief_agent_list = {{ belief_agent_list | tojson }};
+        var mode = "{{ mode | string}}";
+
+		var total_time = 20000;
+		// 记录上一次提交时的毫秒数
+		var last_submit_time = new Date().getTime();
+		var wait_time = 0;
+		var initialization = false;
+		var finished_iteration = -1;
+		var fix_time_per_round = true;
+
+		// 是否为当前任务终止的状态？？
+        var gb_survey_flag = false;
+        // 是否要跳转到感谢页面
+        var gb_thanks_flag = false;
+
+        var agent_name = "{{ agent_name }}";
+
+        // 用于全局控制一局游戏是否全部 rendering 结束；
+        var only_done_once = false;
+        var latest_frame = "{{ latest_frame }}";
+
+        // ShowLabelingBox();
+
+        label1 = document.getElementById("2.1");
+        label2 = document.getElementById("2.2");
+        label3 = document.getElementById("2.3");
+
+        label1.style.display = 'none';
+        label2.style.display = 'none';
+        label3.style.display = 'none';
+
+        ResetActionOptions(action_option_dict, action_name_dict);
+
+        // intent init
+        // your intent init
+        let your_high_intent = document.getElementById("sel_your_high_intent-0");
+        options = your_high_intent.options;
+
+        for (let i = 0; i < options.length; ++i) {
+            option = options[i];
+            for (k in intent_option_dict) {
+                for (item of intent_option_dict[k]) {
+                    if (item.startsWith(option.value) || option.value == 'NA') {
+                        option.disabled = false;
+                    } else {
+                    }
+                }
+            }
+        }
+
+        // other intent init
+        if (belief_agent_list.length > 0) {
+            let other_high_intent = document.getElementById("sel_other_high_intent1-0");
+            options = other_high_intent.options;
+            agent = belief_agent_list[0];
+            option_dict = other_intent_option_dict[agent[0]];
+
+            for (let i = 0; i < options.length; ++i) {
+                option = options[i];
+                for (k in option_dict) {
+                    for (item of option_dict[k]) {
+                        if (item.startsWith(option.value) || option.value == 'NA') {
+                            option.disabled = false;
+                        } else {
+                        }
+                    }
+                }
+            }
+        }
+
+
+		$('#btn1').click(function() {
+			var bar = document.getElementById('current-status');
+			bar.innerHTML = 'Updating your own intents.';
+		});
+		
+		$('#btn2').click(function() {
+			var bar = document.getElementById('current-status');
+			bar.innerHTML = 'Planning my next-step action. ';
+		});
+
+		showAndHideOptions();
+
+        // send user input to server
+        $('#run').click(function() {
+            // 获取对应的文本框内容
+            const explanationText = document.getElementById("explanation3").value.trim();
+            
+            // 检查文本框是否为空
+            if (explanationText === "") {
+                alert("请输入解释！");
+                return;  // 终止函数执行，不进行后续操作
+            }
+
+            // immediately disable the button and waiting for the response
+            $('#run').attr("disabled", true);
+
+            var sel_action = $('#sel_action').val();
+            var sel_action_para1 = $('#sel_action_para1').val();
+            var sel_action_para2 = $('#sel_action_para2').val();
+            var explanation1 = $('#explanation1').val();
+            var explanation2 = $('#explanation2').val();
+            var explanation3 = $('#explanation3').val();
+
+            if (['ActionRotateTo', 'ActionMoveTo'].includes(sel_action)) {
+                if (sel_action_para1 == 'X: Y: ') {
+                    alert("Please click on the specific location with the mouse!");
+                    $('#run').attr("disabled", false);
+                    return;
+                } else if (sel_action_para1 == null) {
+                    alert("Please choose or click the target!");
+                    $('#run').attr("disabled", false);
+                    return;
+                }
+            }
+
+            console.log("sel_action", sel_action);
+
+            if (sel_action === "" || sel_action === null || sel_action === undefined) {
+                alert("Please select a valid action!!!");
+                $('#run').attr("disabled", false);
+                return;
+            }
+
+            // 0926
+            // Check if parameters are visible and not empty
+            // visible or hidden
+            if ($('#sel_action_para1').css('visibility') != 'hidden' && (sel_action_para1 === "" || sel_action_para1 === null)) {
+                alert("Please select a valid parameter for the action!");
+                $('#run').attr("disabled", false);
+                return;
+            }
+
+            // visible or hidden
+            if ($('#sel_action_para2').css('visibility') != 'hidden' && (sel_action_para2 === "" || sel_action_para2 === null)) {
+                alert("Please select a valid second parameter for the action!");
+                $('#run').attr("disabled", false);
+                return;
+            }
+            
+            // your_high_intent
+            // other_high_intent
+            your_high_intent = '';
+            other_high_intent = '';
+
+            if (belief_agent_list.length > 0) {
+                belief_agent_id = belief_agent_list[0][0];
+                other_high_intent = belief_agent_id + "|";
+            }
+
+            for (let i = 0; i < 5; ++i){
+                val = $('#sel_your_high_intent-' + i).val();
+                if (val != null) {
+                    value = world_id_name_dict[val];
+                    if (value == undefined) {
+                        value = val;
+                    }
+                    your_high_intent += value + '-';
+                }
+                val = $('#sel_other_high_intent1-' + i).val();
+                if (val != null) {
+                    value = world_id_name_dict[val];
+                    if (value == undefined) {
+                        value = val;
+                    }
+                    other_high_intent += value + '-';
+                }
+            }
+
+            if (your_high_intent.endsWith('-')) {
+                your_high_intent = your_high_intent.slice(0, your_high_intent.length-1);
+            }
+
+            if (other_high_intent.endsWith('-')) {
+                other_high_intent = other_high_intent.slice(0, other_high_intent.length-1);
+            }
+
+			// 管理状态栏
+			// 一轮时间 - 所用时间 = 等待时间
+			wait_time = total_time - (new Date().getTime() - last_submit_time)
+			if (wait_time < 0) {
+				wait_time = 0;
+			}
+			if (!fix_time_per_round) {
+				wait_time = 0;
+			}
+			// console.log(wait_time);
+			// console.log(new Date().getTime());
+			state_bar_management();
+
+            $.ajax({
+                url: '/' + mode + '/step',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    'action': sel_action,
+                    'param1': sel_action_para1,
+                    'param2': sel_action_para2,
+                    'your_high_intent': your_high_intent,
+                    'other_high_intent': other_high_intent,
+                    'explanation1': explanation1,
+                    'explanation2': explanation2,
+                    'explanation3': explanation3,
+                    'other_desire': getDesireValue('#sel_other_desire_active') + ',' + 
+                                    getDesireValue('#sel_other_desire_social') + ',' + 
+                                    getDesireValue('#sel_other_desire_helpful'),
+                },
+                async: true,
+                success: function(recv) {
+
+                    // 控制一轮游戏的结束状态；
+                    only_done_once = false;
+                    // console.log(recv.message);
+
+                    // action selection
+                    action_option_dict = recv.action_option_dict;
+                    action_option_dict = transformActionOptionDict(action_option_dict);
+
+                    let com = document.getElementById("sel_action");
+                    options = com.options;
+
+                    // intent & tasks
+                    intent_option_dict = recv.intent_option_dict;
+                    // other intent & tasks
+                    other_intent_option_dict = recv.other_intent_option_dict;
+
+                    // belief_agent_list
+                    belief_agent_list = recv.belief_agent_list;
+
+                    // 动作是否合法
+                    invalid = recv.invalid;
+
+                    if (invalid) {
+                        console.log("action failed: " + recv.hint);
+                        alert("action failed: " + recv.hint);
+                        $('#run').attr("disabled", false);
+						
+						var bar = document.getElementById('current-status');
+						bar.innerHTML = 'Planning my next-step action.';
+						
+                        return;
+                    }
+
+                    // status bar
+                    // $('#goal-completion').html('#1 Goal Completion: ' + (recv.goal_completion ? 1 : 0));
+                    // var $valueElement = $('#value-consistency');
+                    // var displayValue = control_test ? 'NA' : (recv.value_consistency * 100).toFixed(2) + '%';
+                    // $valueElement.html('#2 Value Consistency: ' + displayValue);
+
+                    ResetActionOptions(action_option_dict, action_name_dict);
+
+                    // 手动调用函数，改变动作参数
+                    OnActionChange();
+
+                    OnIntentUpdate();
+                    OnIntent2Update();
+                    OnInt2Para1Change();
+                    OnInt2Para2Change();
+                    OnInt2Para3Change();
+
+                    showAndHideOptions();
+
+                    // auto save last action selected, maybe invalid this step, fixme
+                    autoSaveActionOptions(sel_action, sel_action_para1, sel_action_para2, 
+                                          action_option_dict, action_name_dict);
+                }
+            });
+        });
+        
+        let userExit = false;
+        $(
+            function() {
+                // to be tested
+                // 10ms => 50ms => 100ms
+                // 100fps => 20fps => 10fps
+                const exitInterval = setInterval(function() {
+                    if (!userExit) {
+                        call();
+                    } else {
+                        console.log(`User exited. Clearing interval. User ID: ${agentId}, partner id: ${partnerId}. Clearing interval and stopping further API calls.`);
+                        clearInterval(exitInterval);
+                    }
+                }, 100);
+            }
+        );
+
+        OnActionChange();
+        OnIntentChange();
+        showAndHideOptions();
+
+        var first_flag = true;
+
+        // 监控本轮 render 是否结束，因为存在周期性轮询
+        // 控制 render 结束时的逻辑仅执行一次
+        var flag_dict = {};
+        var rendering_flag = false;
+        var active_status = false;
+        var pre_frame = null;
+        var flag_first_move = null;
+        var prev_iteration = null;
+
+
+        // 轮询抓后端数据
+        function call() {
+            $.ajax({
+                url: '/' + mode + '/interact',
+                type: "POST",
+                dataType: "json",
+                async: false,
+                success: function(recv) {
+
+                    // update frame
+                    if (recv.frame_data != '') {
+                        latest_frame = recv.frame_data;
+                    }
+
+                    iteration = recv.iteration;
+                    if (iteration != prev_iteration){
+                        prev_iteration = iteration;
+                        flag_first_move = false;
+                    } else{
+                        flag_first_move = true;
+                    }
+
+                    if ((latest_frame != null) && (iteration >= 1) && (latest_frame != pre_frame) && (flag_first_move == false) && (recv.doing_agent != agentId)){
+                        var audio = new Audio();
+                        //audio.src = 'https://github.com/caozh20/gif_for_ssg/blob/main/beep.mp3?raw=true';
+                        audio.src = 'gif/beep.mp3'
+                        audio.play();
+                        pre_frame = latest_frame;
+                        flag_first_move = true;
+                        //console.log(agentId)   
+                    }
+                    if (latest_frame != null) {
+                        $('#render').attr("src", latest_frame);
+                    }
+
+                    setEmojiPosition(agentId, recv.values_pos_ratio);
+
+                    finished_flag = recv.finished_flag;
+                    to_finish_page = recv.to_finish_page;
+                    room_name = recv.room_name; 
+                    var finish_status = recv.finish_status;
+
+                    active_status = recv.active;
+					sending = recv.sending;
+					fix_time_per_round = recv.fix_time_per_round;
+                    
+                    const roundElement = document.querySelector('#round');
+                    const newRoundContent = `- ROUND ${Math.ceil(iteration / 2)} -`;
+                    if (roundElement.innerHTML !== newRoundContent) {
+                        roundElement.innerHTML = newRoundContent;
+                    }
+                    
+                    // ZoomImage(iteration);
+
+					// sending == getting observation
+					if (sending && initialization) {
+						var bar = document.getElementById('current-status');
+						bar.innerHTML = 'Collecting observations.';
+					}
+
+                    // 触发下一次任务
+					var finished_tasks = recv.finished_tasks;
+                    // 控制values标注的显示和隐藏
+                    toggleValuesVisibility(!control_test && (gb_survey_flag || ((Math.ceil((iteration+1) / 2)) % SHOW_VALUE_BARS_PER_ITERATION === 0)));
+
+                    // u2u mode: 用户每次只需要参与一次
+                    // recv.done == 0 || recv.done == 2: 意味着当前任务已经完成, 0: success, 2: max rounds
+                    // 本轮结束且游戏结束时的逻辑
+                    if (mode == 'u2u' && finished_flag && (recv.done == 0 || recv.done == 2) && !only_done_once) {
+                        // gb_thanks_flag = gb_survey_flag 
+                        if (!gb_survey_flag) {
+                            // 调查对desire的估计
+                            // 这里只改变状态值
+                            gb_survey_flag = true;
+
+                            ShowBeliefAgentLabel()
+
+                            label1 = document.getElementById("2.1");
+                            label2 = document.getElementById("2.2");
+                            label3 = document.getElementById("2.3");
+
+                            if (belief_agent_list.length > 0) {
+                                toggleValuesVisibility(!control_test);
+                                label1.style.display = 'flex';
+                                label2.style.display = 'none';
+                                label3.style.display = 'none';
+                            } else {
+                                toggleValuesVisibility(false);
+                                label1.style.display = 'none';
+                                label2.style.display = 'none';
+                                label3.style.display = 'none';
+                                gb_thanks_flag = true;
+                            }
+                        }
+
+                        if (gb_thanks_flag) {
+                            only_done_once = true;
+                                if (finish_status == 4){
+                                    result = confirm("You've reached the maximum number of interaction rounds. The game is finished!");
+                                }
+                                if (finish_status == 3){
+                                    result = confirm("Both of you have reached your goals. The game is finished!");
+                                }       
+                                if (finish_status == 2){
+                                    result = confirm("Your intent conflicts with the other agent's intent. You have reached your goal. The game is finished!");
+                                }
+                                if (finish_status == 11){
+                                    result = confirm("You have reached your goal. The game is finished!");
+                                }
+                                if (finish_status == 10){
+                                    result = confirm("The other agent has reached his/her goal. The game is finished!");
+                                }
+                                if (finish_status == 21){
+                                    result = confirm("You have helped the other agent reach his/her goal. The game is finished!");
+                                }
+                                if (finish_status == 20){
+                                    result = confirm("The other agent has helped you reach your goal. The game is finished!");
+                                }
+                                if (finish_status == 0){
+                                    result = confirm("Your intent conflicts with the other agent's intent. The other agent has reached his/her goal. The game is finished!");
+                                }
+                            userExit = true;
+                            if (to_finish_page) {
+                                document.getElementById("finish").click();
+                            } else {
+                                if (room_name.includes("热身")) {
+                                    document.getElementById("warm_up_break").click();
+                                }
+                                else {
+                                    document.getElementById("break").click();
+                                }
+                            }
+                        }
+                    }
+
+                    
+                    // 仅本轮结束（游戏结束已被拦截）时的逻辑
+                    if (mode == 'u2u') {
+                        if (!finished_flag && !flag_dict[iteration]) {
+                            // rendering 过程中关闭 label options;
+                           CloseBeliefAgentLabel();
+                        }
+                        // current iteration finished, executed only once
+                        if (finished_flag && !flag_dict[iteration]) {
+                            // todo 0911, 更新 intent 候选框
+                            updated_action_option_dict = transformActionOptionDict(recv.action_option_dict);
+                            if ('action_option_dict' in recv && !isDeepEqual(action_option_dict, recv.action_option_dict)) {
+                                action_option_dict = updated_action_option_dict;
+                                updateActionOptions(action_option_dict, action_name_array);
+                            }
+                            // temp fix
+                            if (['ActionRotateTo', 'ActionMoveTo'].includes($('#sel_action').val())) {
+                                if ($('#sel_action_para1').val() == null) {
+                                    $('#sel_action_para1').val(action_option_dict[$('#sel_action').val()][0][0][1]);
+                                }
+                            }
+
+                            rendering_flag = false;
+                            const clickMarker = document.getElementById('click-marker');
+                            if (clickMarker && clickMarker.style.display !== 'none') {
+                                clickMarker.style.display = 'none';
+                            }
+                            isMarkerVisible = false;
+
+							// 场景初始化
+							if (!initialization) {
+								var bar = document.getElementById('current-status');
+								bar.innerHTML = 'Game started!';
+								initialization = true;
+							}
+
+                            // alert('round ' + iteration + ' finished!');
+                            flag_dict[iteration] = finished_flag;
+
+                            if (active_status) {
+                                ShowLabelingBox();
+                                if (belief_agent_list.length > 0) {
+                                    var bar = document.getElementById('current-status');
+                                    if (document.getElementById('sel_other_desire_active').style.display != 'none') {
+                                        bar.innerHTML = 'Inferring the other player\'s intents and values.';
+                                    } else {
+                                        bar.innerHTML = 'Inferring the other player\'s intents.';
+                                    }
+								}
+								else {
+									var bar = document.getElementById('current-status');
+									bar.innerHTML = 'Updating my own intents.';
+								}
+                            }
+							if ((!active_status) && (finished_iteration != iteration)) {
+								waitting_interact();
+							}
+
+							finished_iteration = iteration;
+
+                            $('#run').attr("disabled", false);
+                        } else {
+                            if (document.getElementById('2.3').style.display != 'none') {
+                                const clickMarker = document.getElementById('click-marker');
+                                if ((isMouseOverImage || isMarkerVisible) && ['ActionMoveTo', 'ActionRotateTo'].includes($('#sel_action').val())) {
+                                    if (clickMarker && clickMarker.style.display == 'none') {
+                                        clickMarker.style.display = 'block';
+                                    }
+                                } else {
+                                    if (clickMarker && clickMarker.style.display != 'none') {
+                                        clickMarker.style.display = 'none';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // u2m mode
+                    else {
+                        // when rendering, donot show the label box;
+                        if (!finished_flag) {
+                           CloseBeliefAgentLabel();
+                        }
+
+                        // current iteration finished, executed only once
+                        if (finished_flag && !flag_dict[iteration]) {
+                            rendering_flag = false;
+                            flag_dict[iteration] = finished_flag;
+                            ShowLabelingBox();
+                            $('#run').attr("disabled", false);
+                            // $('#run').attr("style", "color:black;");
+							last_submit_time = new Date().getTime();
+							// console.log(last_submit_time);
+
+							if (belief_agent_list.length > 0) {
+                                var bar = document.getElementById('current-status');
+                                if (document.getElementById('sel_other_desire_active').style.display != 'none') {
+                                    bar.innerHTML = 'Inferring the other player\'s intents and values.';
+                                }
+                                else {
+                                    bar.innerHTML = 'Inferring the other player\'s intents.';
+                                }
+							}
+							else {
+								var bar = document.getElementById('current-status');
+								bar.innerHTML = 'Updating my own intent.';
+							}
+
+							if (!initialization) {
+								initialization = true;
+							}
+
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // TODO, 这里需要更友好的前端用户提示
+                    // jquery.min.js:2 
+                    // Failed to load resource: the server responded with a status of 400 (BAD REQUEST)
+                    if (xhr.status === 400 && xhr.responseJSON && xhr.responseJSON.error === 'Unexpected redirect from interact page') {
+                        // 与服务器断开连接
+                        console.error('Unexpected redirect detected. Stopping polling.');
+                    } else {
+                        console.error('interact request status: ' + xhr.status + ', error: ' + error);
+                        location.reload();
+                    }
+                    // 终止轮询
+                    userExit = true; 
+                }
+            })
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+{
+    "1257": "my updated intention is: {\n\"most_possible_intention\": \"agent_1-putonto-dumbbell_6-table_7\",\n\"most_possible_intention_cf\": 0.8,\n\"second_possible_intention\": \"agent_1-inform-agent_2-\\\"my intention is to put dumbbell_6 on table_7\\\"\",\n\"second_possible_intention_cf\": 0.5,\n\"third_possible_intention\": \"agent_1-give-dumbbell_6-agent_2\",\n\"third_possible_intention_cf\": 0.3\n}"
+}
