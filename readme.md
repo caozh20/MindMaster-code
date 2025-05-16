@@ -4,6 +4,13 @@
 pip install -r requirement.txt
 ```
 
+if the pygame install causes error, run:
+
+```
+sudo apt-get update
+sudo apt-get install libsdl2-dev
+```
+
 
 For the *Mindmaster platform*
 
