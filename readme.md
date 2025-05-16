@@ -21,6 +21,8 @@ python main_interact.py
 
 For reproduce experiments
 
+Make sure you have specified the correct API and model path in experiment_codes/llms/test_local_model.py
+
 ```bash 
 python experiment_codes/llms/test_local_model.py --MODEL ``your_model''
 ```
