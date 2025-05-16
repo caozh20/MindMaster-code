@@ -11,6 +11,7 @@ sudo apt-get update
 sudo apt-get install libsdl2-dev
 ```
 
+If any packages are missing, please install them manually.
 
 For the *Mindmaster platform*
 
@@ -21,5 +22,5 @@ python main_interact.py
 For reproduce experiments
 
 ```bash 
-python experiment_codes/llms/test_local_model.py --MODEL ``your_mode''
+python experiment_codes/llms/test_local_model.py --MODEL ``your_model''
 ```
